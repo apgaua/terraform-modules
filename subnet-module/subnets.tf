@@ -1,11 +1,11 @@
 resource "aws_subnet" "main" {
-#   count             = length(var.database_subnets)
+  count             = length(var.cidr_blocks)
   vpc_id            = var.vpc_id
-  cidr_block        = var.subnets.cidr
-  availability_zone = var.subnets.availability_zone
+  cidr_block        = element(var.cidr_blocks, count.index)
+  availability_zone = element(var.availability_zones, count.index)
 
   tags = {
-    Name = var.subnets.name
+    Name = var.subnets[count.index].name
   }
 
 #   depends_on = [
