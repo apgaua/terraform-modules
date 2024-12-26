@@ -3,5 +3,5 @@ output "vpc_id" {
 }
 
 output "vpc_additional_cidrs" {
-  value = aws_vpc_ipv4_cidr_block_association.main[*].id
+  [for i in aws_vpc_ipv4_cidr_block_association.main : i.id]
 }
