@@ -12,5 +12,3 @@ variable "subnets" {
     availability_zone = string
   }))
 }
-
-variable 
