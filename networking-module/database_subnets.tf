@@ -24,7 +24,6 @@ resource "aws_network_acl" "database" {
   tags = {
     Name = var.databasesubnets[count.index].name
   }
-  )
 
 }
 
