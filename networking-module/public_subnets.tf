@@ -29,7 +29,7 @@ resource "aws_route" "public_access" {
 }
 
 resource "aws_route_table_association" "public_" {
-  count          = length(var.availability_zones)
+  count          = length(var.publicsubnets)
   subnet_id      = aws_subnet.publicsubnets[count.index].id
   route_table_id = aws_route_table.public_internet_access.id
 }

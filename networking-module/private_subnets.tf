@@ -1,5 +1,5 @@
 resource "aws_eip" "vpc_eip" {
-  count  = length(var.availability_zones)
+  count  = length(var.privatesubnets)
   domain = "vpc"
   tags = {
     Name = format("%s-eip-%s", var.project_name, count.index)
@@ -7,7 +7,7 @@ resource "aws_eip" "vpc_eip" {
 }
 
 resource "aws_nat_gateway" "natgw" {
-  count         = length(var.availability_zones)
+  count         = length(var.privatesubnets)
   allocation_id = aws_eip.vpc_eip[count.index].id
   subnet_id     = aws_subnet.publicsubnets[count.index].id
 
