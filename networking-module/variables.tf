@@ -47,3 +47,14 @@ variable "databasesubnets" {
   default     = []
 }
 
+variable "database_nacl_rules" {
+  type = list(object({
+    rule_start_number = number
+    rule_action       = string
+    protocol          = string
+    from_port         = optional(number)
+    to_port           = optional(number)
+  }))
+  description = "ACL Rules to DB Subnet"
+  default     = []
+}
