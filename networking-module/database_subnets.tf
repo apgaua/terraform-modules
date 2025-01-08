@@ -31,7 +31,7 @@ resource "aws_network_acl_association" "database" {
   count = length(var.databasesubnets)
 
   network_acl_id = aws_network_acl.database.id
-  subnet_id      = aws_subnet.database[count.index].id
+  subnet_id      = aws_subnet.dbsubnets[count.index].id
 }
 
 locals {
