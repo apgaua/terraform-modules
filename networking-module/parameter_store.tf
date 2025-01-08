@@ -27,7 +27,7 @@ resource "aws_ssm_parameter" "privatesubnets" {
 }
 
 resource "aws_ssm_parameter" "databasesubnets" {
-  count = length(aws_subnet.databasesubnets)
+  count = length(aws_subnet.dbsubnets)
   name  = "/${var.project_name}/subnets/databases/${var.databasesubnets[count.index].availability_zone}/${var.databasesubnets[count.index].name}"
   type  = "String"
   value = aws_subnet.dbsubnets[count.index].id
