@@ -21,17 +21,15 @@ resource "aws_network_acl" "database" {
     to_port    = 0
   }
 
-  tags = merge(
-    {
-      Name = format("%s-databases", var.project_name)
-    },
-    var.common_tags
+  tags = {
+    Name = var.databasesubnets[count.index].name
+  }
   )
 
 }
 
 resource "aws_network_acl_association" "database" {
-  count = length(var.database_subnets)
+  count = length(var.databasesubnets)
 
   network_acl_id = aws_network_acl.database.id
   subnet_id      = aws_subnet.database[count.index].id
@@ -40,7 +38,7 @@ resource "aws_network_acl_association" "database" {
 locals {
   nacl = flatten([
     for acl in var.database_nacl_rules : [
-      for index, subnet in var.database_subnets : {
+      for index, subnet in var.databasesubnets : {
         rule_number = acl.rule_start_number + index
         rule_action = acl.rule_action
         protocol    = acl.protocol
