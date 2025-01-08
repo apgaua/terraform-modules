@@ -11,7 +11,7 @@ variable "vpc_cidr" {
 variable "vpc_additional_cidrs" {
   type        = list(string)
   description = "CIDRs adicionais"
-  default     = [""]
+  default     = []
 }
 
 variable "region" {
