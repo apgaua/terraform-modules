@@ -19,12 +19,6 @@ variable "region" {
   description = "The AWS region"
 }
 
-variable "vpc_additional_cidrs" {
-  type        = list(string)
-  description = "Additional VPC CIDRs"
-  default     = []
-}
-
 variable "public_subnets" {
   type = list(object({
     name              = string
