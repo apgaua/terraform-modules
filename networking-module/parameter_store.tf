@@ -6,7 +6,7 @@ resource "aws_ssm_parameter" "vpc" {
 
 
 resource "aws_ssm_parameter" "publicsubnets" {
-  count = length(aws_subnet.public)
+  count = length(aws_subnet.publicsubnets)
   name  = "/${var.project_name}/subnets/public/${var.publicsubnets[count.index].availability_zone}/${var.publicsubnets[count.index].name}"
   type  = "String"
   value = aws_subnet.publicsubnets[count.index].id
@@ -16,7 +16,7 @@ resource "aws_ssm_parameter" "publicsubnets" {
 }
 
 resource "aws_ssm_parameter" "privatesubnets" {
-  count = length(aws_subnet.private)
+  count = length(aws_subnet.privatesubnets)
 
   name  = "/${var.project_name}/subnets/private/${var.privatesubnets[count.index].availability_zone}/${var.privatesubnets[count.index].name}"
   type  = "String"
@@ -27,7 +27,7 @@ resource "aws_ssm_parameter" "privatesubnets" {
 }
 
 resource "aws_ssm_parameter" "databasesubnets" {
-  count = length(aws_subnet.database)
+  count = length(aws_subnet.databasesubnets)
   name  = "/${var.project_name}/subnets/databases/${var.databasesubnets[count.index].availability_zone}/${var.databasesubnets[count.index].name}"
   type  = "String"
   value = aws_subnet.dbsubnets[count.index].id
