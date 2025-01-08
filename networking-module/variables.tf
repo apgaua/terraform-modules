@@ -19,7 +19,7 @@ variable "region" {
   description = "The AWS region"
 }
 
-variable "public_subnets" {
+variable "publicsubnets" {
   type = list(object({
     name              = string
     cidr              = string
@@ -28,7 +28,7 @@ variable "public_subnets" {
   description = "Public subnet CIDR"
 }
 
-variable "private_subnets" {
+variable "privatesubnets" {
   type = list(object({
     name              = string
     cidr              = string
@@ -37,7 +37,7 @@ variable "private_subnets" {
   description = "Private subnet CIDR"
 }
 
-variable "database_subnets" {
+variable "databasesubnets" {
   type = list(object({
     name              = string
     cidr              = string
