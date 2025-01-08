@@ -21,9 +21,11 @@ resource "aws_network_acl" "database" {
     to_port    = 0
   }
 
-  tags = {
-    Name = var.databasesubnets[count.index].name
-  }
+  tags = (
+    {
+      Name = format("%s-databases", var.project_name)
+    }
+  )
 
 }
 
