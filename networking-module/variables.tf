@@ -58,3 +58,8 @@ variable "database_nacl_rules" {
   description = "ACL Rules to DB Subnet"
   default     = []
 }
+
+variable "singlenat" {
+  type    = bool
+  default = true
+}

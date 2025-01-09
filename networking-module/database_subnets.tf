@@ -22,8 +22,8 @@ resource "aws_network_acl" "database" {
   }
 
   tags = {
-      Name = format("%s-databases", var.project_name)
-    }
+    Name = format("%s-databases", var.project_name)
+  }
 
 }
 
