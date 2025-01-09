@@ -1,13 +1,13 @@
-resource "aws_eip" "vpc_eip" {
-  count  = length(var.privatesubnets)
+resource "aws_eip" "eip" {
+  count  = length(var.publicsubnets)
   domain = "vpc"
   tags = {
     Name = format("%s-eip-%s", var.project_name, count.index)
   }
 }
 
-resource "aws_nat_gateway" "natgw" {
-  count         = length(var.privatesubnets)
+resource "aws_nat_gateway" "main" {
+  count         = length(var.publicsubnets)
   allocation_id = aws_eip.vpc_eip[count.index].id
   subnet_id     = aws_subnet.publicsubnets[count.index].id
 
@@ -44,7 +44,7 @@ resource "aws_route" "private_access" {
   count                  = length(var.privatesubnets)
   route_table_id         = aws_route_table.private_internet_access[count.index].id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_nat_gateway.natgw[count.index].id
+  gateway_id             = aws_nat_gateway.main[count.index].id
 }
 
 #Route table association
