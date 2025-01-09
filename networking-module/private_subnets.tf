@@ -8,14 +8,14 @@ resource "aws_eip" "eip" {
 
 resource "aws_nat_gateway" "main" {
   count         = length(var.publicsubnets)
-  allocation_id = aws_eip.vpc_eip[count.index].id
+  allocation_id = aws_eip.eip[count.index].id
   subnet_id     = aws_subnet.publicsubnets[count.index].id
 
   tags = {
     Name = format("%s-nat-gateway-%s", var.project_name, count.index)
   }
   depends_on = [aws_internet_gateway.gw,
-    aws_eip.vpc_eip,
+    aws_eip.eip,
   aws_subnet.publicsubnets]
 }
 
