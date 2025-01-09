@@ -44,7 +44,7 @@ resource "aws_route" "private_access" {
   count                  = length(var.privatesubnets)
   route_table_id         = aws_route_table.private_internet_access[count.index].id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_nat_gateway.main[count.index].id
+  gateway_id             = aws_nat_gateway.main[count.index % length(var.publicsubnets)].id
 }
 
 #Route table association
