@@ -11,8 +11,8 @@ resource "aws_ssm_parameter" "publicsubnets" {
   type  = "String"
   value = aws_subnet.publicsubnets[count.index].id
   tags = {
-      Name = "/${var.project_name}/subnets/public/${var.publicsubnets[count.index].availability_zone}/${var.publicsubnets[count.index].name}"
-    }
+    Name = "/${var.project_name}/subnets/public/${var.publicsubnets[count.index].availability_zone}/${var.publicsubnets[count.index].name}"
+  }
 }
 
 resource "aws_ssm_parameter" "privatesubnets" {
@@ -22,8 +22,8 @@ resource "aws_ssm_parameter" "privatesubnets" {
   type  = "String"
   value = aws_subnet.privatesubnets[count.index].id
   tags = {
-      Name = "/${var.project_name}/subnets/private/${var.privatesubnets[count.index].availability_zone}/${var.privatesubnets[count.index].name}"
-    }
+    Name = "/${var.project_name}/subnets/private/${var.privatesubnets[count.index].availability_zone}/${var.privatesubnets[count.index].name}"
+  }
 }
 
 resource "aws_ssm_parameter" "databasesubnets" {
@@ -32,6 +32,6 @@ resource "aws_ssm_parameter" "databasesubnets" {
   type  = "String"
   value = aws_subnet.dbsubnets[count.index].id
   tags = {
-      Name = "/${var.project_name}/subnets/databases/${var.databasesubnets[count.index].availability_zone}/${var.databasesubnets[count.index].name}"
-}
+    Name = "/${var.project_name}/subnets/databases/${var.databasesubnets[count.index].availability_zone}/${var.databasesubnets[count.index].name}"
+  }
 }
