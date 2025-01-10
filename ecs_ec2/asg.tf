@@ -1,8 +1,9 @@
 ## ON DEMAND ASG
 resource "aws_autoscaling_group" "on_demand" {
+    count = length(data.aws_ssm_parameter.privsubnet)
   name_prefix = format("%s-on-demand", var.project_name)
   vpc_zone_identifier = [
-    data.aws_ssm_parameter.privsubnet.value,
+    data.aws_ssm_parameter.privsubnet[count.index].value,
   ]
   #       enabled_metrics = true
   desired_capacity = var.cluster_ondemand_desired
@@ -45,9 +46,10 @@ resource "aws_ecs_capacity_provider" "on_demand" {
 
 ## SPOT ASG
 resource "aws_autoscaling_group" "spot" {
+  count = length(data.aws_ssm_parameter.privsubnet)
   name_prefix = format("%s-spot", var.project_name)
   vpc_zone_identifier = [
-    data.aws_ssm_parameter.privsubnet.value
+    data.aws_ssm_parameter.privsubnet[count.index].value
 ]
   #       enabled_metrics = true
   desired_capacity = var.cluster_spot_desired
