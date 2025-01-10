@@ -9,7 +9,7 @@ data "aws_ssm_parameter" "vpc" {
 
 data "aws_ssm_parameter" "pubsubnet" {
   count = var.publicsubnets
-  name.publicsubnets[count.index]
+  name = publicsubnets[count.index]
 }
 
 data "aws_ssm_parameter" "privsubnet" {
