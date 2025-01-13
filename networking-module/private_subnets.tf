@@ -2,7 +2,7 @@ resource "aws_eip" "eip" {
   count  = var.singlenat == true ? 1 : length(var.publicsubnets)
   domain = "vpc"
   tags = {
-    Name = format("%s-eip-%s", var.project_name, var.publicsubnets[count.inde].availability_zone)
+    Name = format("%s-eip-%s", var.project_name, var.publicsubnets[count.index].availability_zone)
   }
 }
 
