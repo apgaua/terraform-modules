@@ -2,9 +2,9 @@ output "ssm_vpc_id" {
   value = aws_ssm_parameter.vpc.id
 }
 
-output "vpc_additional_cidrs" {
-  value = [for i in aws_vpc_ipv4_cidr_block_association.main : i.id]
-}
+# output "vpc_additional_cidrs" {
+#   value = [for i in aws_vpc_ipv4_cidr_block_association.main : i.id]
+# }
 
 output "ssm_public_subnets" {
   value       = aws_ssm_parameter.publicsubnets[*].id

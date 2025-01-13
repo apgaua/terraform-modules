@@ -28,7 +28,7 @@ resource "aws_route" "public_access" {
   gateway_id             = aws_internet_gateway.gw.id
 }
 
-resource "aws_route_table_association" "public_" {
+resource "aws_route_table_association" "public" {
   count          = length(var.publicsubnets)
   subnet_id      = aws_subnet.publicsubnets[count.index].id
   route_table_id = aws_route_table.public_internet_access.id
