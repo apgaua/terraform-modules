@@ -3,7 +3,7 @@ resource "aws_lb" "main" {
   internal           = var.load_balancer_internal
   load_balancer_type = var.load_balancer_type
   subnets = [
-    data.aws_ssm_parameter.pubsubnet.value
+    data.aws_ssm_parameter.pubsubnet[*].value
   ]
   security_groups                  = [aws_security_group.lb.id]
   enable_cross_zone_load_balancing = false
