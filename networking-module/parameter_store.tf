@@ -4,7 +4,6 @@ resource "aws_ssm_parameter" "vpc" {
   value = aws_vpc.main.id
 }
 
-
 resource "aws_ssm_parameter" "publicsubnets" {
   count = length(aws_subnet.publicsubnets)
   name  = "/${var.project_name}/subnets/public/${var.publicsubnets[count.index].availability_zone}/${var.publicsubnets[count.index].name}"

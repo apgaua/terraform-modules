@@ -6,6 +6,7 @@ variable "project_name" {
 }
 variable "ssm_vpc_id" {
     type = string
+    default = "/ECS/vpc/id"
 }
 
 variable "privatesubnets" {
