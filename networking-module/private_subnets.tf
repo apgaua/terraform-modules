@@ -2,7 +2,7 @@ resource "aws_eip" "eip" {
   count  = var.singlenat == true ? 1 : length(var.publicsubnets)
   domain = "vpc"
   tags = {
-    Name = format("%s-eip-%s", var.project_name, count.index)
+    Name = format("%s-eip-%s", var.project_name, var.publicsubnets[count.index].availability_zone)
   }
 }
 
@@ -28,6 +28,7 @@ resource "aws_subnet" "privatesubnets" {
   tags = {
     Name = var.privatesubnets[count.index].name
   }
+  depends_on = [ aws_vpc_ipv4_cidr_block_association.main ]
 }
 
 #Route Table
