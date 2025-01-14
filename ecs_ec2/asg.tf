@@ -27,7 +27,7 @@ resource "aws_autoscaling_group" "on_demand" {
 }
 
 resource "aws_ecs_capacity_provider" "on_demand" {
-  name = format("%s-on-demand", var.project_name)
+  name = format("cp-%s-on-demand", var.project_name)
 
   auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.on_demand.arn
@@ -71,7 +71,7 @@ resource "aws_autoscaling_group" "spot" {
 }
 
 resource "aws_ecs_capacity_provider" "spot" {
-  name = format("%s-spot", var.project_name)
+  name = format("cp-%s-spot", var.project_name)
 
   auto_scaling_group_provider {
     auto_scaling_group_arn = aws_autoscaling_group.spot.arn

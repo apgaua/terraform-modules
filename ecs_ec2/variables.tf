@@ -1,8 +1,11 @@
 variable "region" {
     type = string
+    description = "Specify AWS region"
+    default = "us-east-1"
 }
 variable "project_name" {
     type = string
+    description = "Resources name"
 }
 variable "ssm_vpc_id" {
     type = string
@@ -18,27 +21,58 @@ variable "publicsubnets" {
 variable "databasesubnets" {
     type = list(string)
 }
+##############################################################
+################### LOAD BALANCER VARIABLES ##################
+##############################################################
 
-variable "load_balancer_internal" {}
+variable "load_balancer_internal" {
+  type = bool
+}
 
-variable "load_balancer_type" {}
+variable "load_balancer_type" {
+  type = string
+}
 
-variable "nodes_ami" {}
+##############################################################
+####################### ECS VARIABLES ########################
+##############################################################
 
-variable "node_instance_type" {}
+variable "nodes_ami" {
+  type = string
+}
 
-variable "node_volume_size" {}
+variable "node_instance_type" {
+  type = string
+}
 
-variable "node_volume_type" {}
+variable "node_volume_size" {
+  type = number
+}
 
-variable "cluster_ondemand_min" {}
+variable "node_volume_type" {
+  type = string
+}
 
-variable "cluster_ondemand_max" {}
+variable "cluster_ondemand_min" {
+  type = number
+}
 
-variable "cluster_ondemand_desired" {}
+variable "cluster_ondemand_max" {
+  type = number
+}
 
-variable "cluster_spot_min" {}
+variable "cluster_ondemand_desired" {
+  type = number
+}
 
-variable "cluster_spot_max" {}
+variable "cluster_spot_min" {
+  type = number
+}
 
-variable "cluster_spot_desired" {}
+variable "cluster_spot_max" {
+  type = number
+}
+
+variable "cluster_spot_desired" {
+  type = number
+}
