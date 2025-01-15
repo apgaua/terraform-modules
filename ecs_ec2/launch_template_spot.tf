@@ -8,7 +8,7 @@ resource "aws_launch_template" "spot" {
   instance_market_options {
     market_type = "spot"
     spot_options {
-      max_price = "0.15"
+      max_price = var.cluster_spot_maxprice
     }
   }
 
