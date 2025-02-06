@@ -1,12 +1,14 @@
 resource "aws_subnet" "dbsubnets" {
   count             = length(var.databasesubnets)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.databasesubnets[count.index].cidr
-  availability_zone = var.databasesubnets[count.index].availability_zone
-
-  tags = {
-    Name = var.databasesubnets[count.index].name
-  }
+  cidr_block        = var.databasesubnets[count.index]
+  availability_zone = data.aws_availability_zones.azones.names[count.index]
+  tags = merge(
+  {
+    Name = format("database-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
+  },
+  var.default_tags
+  )
 }
 
 resource "aws_network_acl" "database" {
@@ -21,10 +23,12 @@ resource "aws_network_acl" "database" {
     to_port    = 0
   }
 
-  tags = {
-    Name = format("%s-databases", var.project_name)
-  }
-
+  tags = merge(
+  {
+    Name = format("database-%s", var.project_name)
+  },
+  var.default_tags
+  )
 }
 
 resource "aws_network_acl_association" "database" {
@@ -43,7 +47,7 @@ locals {
         protocol    = acl.protocol
         from_port   = acl.from_port
         to_port     = acl.to_port
-        cidr_block  = subnet.cidr
+        cidr_block  = subnet
       }
     ]
   ])

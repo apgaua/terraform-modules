@@ -1,33 +1,14 @@
-resource "aws_eip" "eip" {
-  count  = var.singlenat == true ? 1 : length(var.publicsubnets)
-  domain = "vpc"
-  tags = {
-    Name = format("%s-eip-%s", var.project_name, var.publicsubnets[count.index].availability_zone)
-  }
-}
-
-resource "aws_nat_gateway" "main" {
-  count         = var.singlenat == true ? 1 : length(var.publicsubnets)
-  allocation_id = aws_eip.eip[count.index].id
-  subnet_id     = aws_subnet.publicsubnets[count.index].id
-
-  tags = {
-    Name = format("%s-nat-gateway-%s", var.project_name, count.index)
-  }
-  depends_on = [aws_internet_gateway.gw,
-    aws_eip.eip,
-  aws_subnet.publicsubnets]
-}
-
 resource "aws_subnet" "privatesubnets" {
   count             = length(var.privatesubnets)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.privatesubnets[count.index].cidr
-  availability_zone = var.privatesubnets[count.index].availability_zone
-
-  tags = {
-    Name = var.privatesubnets[count.index].name
-  }
+  cidr_block        = var.privatesubnets[count.index]
+  availability_zone = data.aws_availability_zones.azones.names[count.index]
+  tags = merge(
+  {
+    Name = format("private-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
+  },
+  var.default_tags
+  )
   depends_on = [ aws_vpc_ipv4_cidr_block_association.main ]
 }
 
@@ -35,9 +16,12 @@ resource "aws_subnet" "privatesubnets" {
 resource "aws_route_table" "private_internet_access" {
   count  = length(var.privatesubnets)
   vpc_id = aws_vpc.main.id
-  tags = {
-    Name = format("%s-private-%s", var.project_name, count.index)
-  }
+    tags = merge(
+  {
+    Name = format("private-%s", var.project_name)
+  },
+  var.default_tags
+  )
 }
 
 #Route

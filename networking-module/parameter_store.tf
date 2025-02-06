@@ -6,31 +6,40 @@ resource "aws_ssm_parameter" "vpc" {
 
 resource "aws_ssm_parameter" "publicsubnets" {
   count = length(aws_subnet.publicsubnets)
-  name  = "/${var.project_name}/subnets/public/${var.publicsubnets[count.index].availability_zone}/${var.publicsubnets[count.index].name}"
+  name  = format("/%s/subnets/public/%s", var.project_name, replace(aws_subnet.publicsubnets[count.index].availability_zone, "-", "_"))
   type  = "String"
   value = aws_subnet.publicsubnets[count.index].id
-  tags = {
-    Name = "/${var.project_name}/subnets/public/${var.publicsubnets[count.index].availability_zone}/${var.publicsubnets[count.index].name}"
-  }
+  tags = merge(
+  {
+    Name = format("%s/subnets/public/%s", var.project_name, aws_subnet.publicsubnets[count.index].availability_zone)
+  },
+  var.default_tags
+  )
 }
 
 resource "aws_ssm_parameter" "privatesubnets" {
   count = length(aws_subnet.privatesubnets)
 
-  name  = "/${var.project_name}/subnets/private/${var.privatesubnets[count.index].availability_zone}/${var.privatesubnets[count.index].name}"
+  name  = format("/%s/subnets/private/%s", var.project_name, replace(aws_subnet.privatesubnets[count.index].availability_zone, "-", "_"))
   type  = "String"
   value = aws_subnet.privatesubnets[count.index].id
-  tags = {
-    Name = "/${var.project_name}/subnets/private/${var.privatesubnets[count.index].availability_zone}/${var.privatesubnets[count.index].name}"
-  }
+  tags = merge(
+  {
+    Name = format("%s/subnets/private/%s", var.project_name, aws_subnet.privatesubnets[count.index].availability_zone)
+  },
+  var.default_tags
+  )
 }
 
 resource "aws_ssm_parameter" "databasesubnets" {
   count = length(aws_subnet.dbsubnets)
-  name  = "/${var.project_name}/subnets/databases/${var.databasesubnets[count.index].availability_zone}/${var.databasesubnets[count.index].name}"
+  name  = format("/%s/subnets/databases/%s", var.project_name, replace(aws_subnet.dbsubnets[count.index].availability_zone, "-", "_"))
   type  = "String"
   value = aws_subnet.dbsubnets[count.index].id
-  tags = {
-    Name = "/${var.project_name}/subnets/databases/${var.databasesubnets[count.index].availability_zone}/${var.databasesubnets[count.index].name}"
-  }
+  tags = merge(
+  {
+    Name = format("%s/subnets/database/%s", var.project_name, aws_subnet.dbsubnets[count.index].availability_zone)
+  },
+  var.default_tags
+  )
 }

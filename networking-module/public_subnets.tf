@@ -1,25 +1,23 @@
-resource "aws_internet_gateway" "gw" {
-  vpc_id = aws_vpc.main.id
-
-  tags = {
-    Name = format("%s-igw", var.project_name)
-  }
-}
-
 resource "aws_subnet" "publicsubnets" {
   count             = length(var.publicsubnets)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.publicsubnets[count.index].cidr
-  availability_zone = var.publicsubnets[count.index].availability_zone
-  tags = {
-    Name = var.publicsubnets[count.index].name
-  }
+  cidr_block        = var.publicsubnets[count.index]
+  availability_zone = data.aws_availability_zones.azones.names[count.index]
+  tags = merge(
+  {
+    Name = format("public-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
+  },
+  var.default_tags
+  )
 }
 resource "aws_route_table" "public_internet_access" {
   vpc_id = aws_vpc.main.id
-  tags = {
-    Name = format("%s-public", var.project_name)
-  }
+  tags = merge(
+  {
+    Name = format("public-%s", var.project_name)
+  },
+  var.default_tags
+  )
 }
 
 resource "aws_route" "public_access" {
