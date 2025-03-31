@@ -16,6 +16,11 @@ output "ssm_private_subnets" {
   description = "SSM Parameters about private subnets id"
 }
 
+output "ssm_pod_subnets" {
+  value       = aws_ssm_parameter.podsubnets[*].id
+  description = "SSM Parameters about POD subnets id"
+}
+
 output "ssm_database_subnets" {
   value       = aws_ssm_parameter.databasesubnets[*].id
   description = "SSM Parameters about database subnets id"

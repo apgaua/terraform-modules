@@ -14,35 +14,38 @@ variable "vpc_additional_cidrs" {
   default     = [""]
 }
 
+variable "default_tags" {
+  type = map(string)
+  default = {
+    contato = ""
+    dia     = ""
+    repo    = ""
+  }
+}
+
 variable "region" {
   type        = string
   description = "The AWS region"
 }
 
 variable "publicsubnets" {
-  type = list(object({
-    name              = string
-    cidr              = string
-    availability_zone = string
-  }))
+  type        = list(string)
   description = "Public subnet CIDR"
 }
 
 variable "privatesubnets" {
-  type = list(object({
-    name              = string
-    cidr              = string
-    availability_zone = string
-  }))
+  type        = list(string)
   description = "Private subnet CIDR"
 }
 
+variable "podsubnets" {
+  type        = list(string)
+  description = "POD subnet CIDR"
+  default = []
+}
+
 variable "databasesubnets" {
-  type = list(object({
-    name              = string
-    cidr              = string
-    availability_zone = string
-  }))
+  type        = list(string)
   description = "Database CIDR"
   default     = []
 }

@@ -2,9 +2,8 @@ resource "aws_lb" "main" {
   name               = format("%s-ingress", var.project_name)
   internal           = var.load_balancer_internal
   load_balancer_type = var.load_balancer_type
-  subnets = [
-    data.aws_ssm_parameter.pubsubnet[*].value
-  ]
+  subnets            = data.aws_ssm_parameter.public_subnet[*].value
+
   security_groups                  = [aws_security_group.lb.id]
   enable_cross_zone_load_balancing = false
   enable_deletion_protection       = false
