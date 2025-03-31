@@ -1,6 +1,6 @@
 ## SPOT ASG
 resource "aws_autoscaling_group" "spot" {
-  name_prefix = format("asg-%s-spot", var.project_name)
+  name_prefix         = format("asg-%s-spot", var.project_name)
   vpc_zone_identifier = data.aws_ssm_parameter.private_subnet[*].value
 
   #       enabled_metrics = true

@@ -18,8 +18,8 @@ variable "default_tags" {
   type = map(string)
   default = {
     contato = ""
-    dia = ""
-    repo = ""
+    dia     = ""
+    repo    = ""
   }
 }
 
@@ -29,17 +29,23 @@ variable "region" {
 }
 
 variable "publicsubnets" {
-  type = list(string)
+  type        = list(string)
   description = "Public subnet CIDR"
 }
 
 variable "privatesubnets" {
-  type = list(string)
+  type        = list(string)
   description = "Private subnet CIDR"
 }
 
+variable "podsubnets" {
+  type        = list(string)
+  description = "POD subnet CIDR"
+  default = []
+}
+
 variable "databasesubnets" {
-  type = list(string)
+  type        = list(string)
   description = "Database CIDR"
   default     = []
 }

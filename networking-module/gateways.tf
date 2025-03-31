@@ -3,9 +3,9 @@ resource "aws_eip" "eip" {
   domain = "vpc"
   tags = merge(
     {
-    Name = format("eip-%s", var.project_name)
+      Name = format("eip-%s", var.project_name)
     },
-  var.default_tags
+    var.default_tags
   )
 }
 

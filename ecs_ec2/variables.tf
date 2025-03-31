@@ -1,29 +1,29 @@
 variable "region" {
-    type = string
-    description = "Specify AWS region"
-    default = "us-east-1"
+  type        = string
+  description = "Specify AWS region"
+  default     = "us-east-1"
 }
 
 variable "project_name" {
-    type = string
-    description = "Resources name"
+  type        = string
+  description = "Resources name"
 }
 
 variable "ssm_vpc_id" {
-    type = string
-    default = "/ECS/vpc/id"
+  type    = string
+  default = "/ECS/vpc/id"
 }
 
 variable "privatesubnets" {
-    type = list(string)
+  type = list(string)
 }
 
 variable "publicsubnets" {
-    type = list(string)
+  type = list(string)
 }
 
 variable "databasesubnets" {
-    type = list(string)
+  type = list(string)
 }
 
 ##############################################################
@@ -83,5 +83,5 @@ variable "cluster_spot_desired" {
 }
 
 variable "cluster_spot_maxprice" {
-type = string
+  type = string
 }
