@@ -1,3 +1,22 @@
+locals {
+  nacl = flatten([
+    for acl in var.database_nacl_rules : [
+      for index, subnet in var.databasesubnets : {
+        rule_number = acl.rule_start_number + index
+        rule_action = acl.rule_action
+        protocol    = acl.protocol
+        from_port   = acl.from_port
+        to_port     = acl.to_port
+        cidr_block  = subnet
+      }
+    ]
+  ])
+}
+
+##################################################
+##################### SUBNET #####################
+##################################################
+
 resource "aws_subnet" "dbsubnets" {
   count             = length(var.databasesubnets)
   vpc_id            = aws_vpc.main.id
@@ -10,6 +29,10 @@ resource "aws_subnet" "dbsubnets" {
     var.default_tags
   )
 }
+
+##################################################
+################## NETWORK ACL ###################
+##################################################
 
 resource "aws_network_acl" "database" {
   vpc_id = aws_vpc.main.id
@@ -31,6 +54,10 @@ resource "aws_network_acl" "database" {
   )
 }
 
+##################################################
+############ NETWORK ACL ASSOCIATION #############
+##################################################
+
 resource "aws_network_acl_association" "database" {
   count = length(var.databasesubnets)
 
@@ -38,20 +65,9 @@ resource "aws_network_acl_association" "database" {
   subnet_id      = aws_subnet.dbsubnets[count.index].id
 }
 
-locals {
-  nacl = flatten([
-    for acl in var.database_nacl_rules : [
-      for index, subnet in var.databasesubnets : {
-        rule_number = acl.rule_start_number + index
-        rule_action = acl.rule_action
-        protocol    = acl.protocol
-        from_port   = acl.from_port
-        to_port     = acl.to_port
-        cidr_block  = subnet
-      }
-    ]
-  ])
-}
+##################################################
+############### NETWORK ACL RULES ################
+##################################################
 
 resource "aws_network_acl_rule" "ingress" {
   count = length(local.nacl)

@@ -1,6 +1,6 @@
 #VPC Variables
 variable "project_name" {
-  type = string
+  type    = string
   default = "Name of the project"
 }
 
@@ -43,7 +43,7 @@ variable "privatesubnets" {
 variable "podsubnets" {
   type        = list(string)
   description = "POD subnet CIDR"
-  default = []
+  default     = []
 }
 
 variable "databasesubnets" {
@@ -60,13 +60,13 @@ variable "database_nacl_rules" {
   #   from_port         = optional(number)
   #   to_port           = optional(number)
   # }))
-  type        = list(map(string))  
+  type        = list(map(string))
   description = "NACL rules that will be created in database subnet"
   default     = []
 }
 
 variable "singlenat" {
-  type    = bool
-  default = true
+  type        = bool
+  default     = true
   description = "Should it be deploy with a single NAT Gateway? If set to false, it will be deployed one each AZ"
 }

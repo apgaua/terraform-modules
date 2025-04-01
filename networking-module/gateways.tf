@@ -1,3 +1,7 @@
+##################################################
+################### ELASTIC IP ###################
+##################################################
+
 resource "aws_eip" "eip" {
   count  = var.singlenat == true ? 1 : length(var.publicsubnets)
   domain = "vpc"
@@ -9,6 +13,10 @@ resource "aws_eip" "eip" {
   )
 }
 
+##################################################
+############### INTERNET GATEWAY #################
+##################################################
+
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 
@@ -16,6 +24,10 @@ resource "aws_internet_gateway" "gw" {
     Name = format("%s-igw", var.project_name)
   }
 }
+
+##################################################
+################# NAT GATEWAY ####################
+##################################################
 
 resource "aws_nat_gateway" "main" {
   count         = var.singlenat == true ? 1 : length(var.publicsubnets)
