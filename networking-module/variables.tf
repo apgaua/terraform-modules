@@ -1,16 +1,17 @@
 #VPC Variables
 variable "project_name" {
   type = string
+  default = "Name of the project"
 }
 
 variable "vpc_cidr" {
   type        = string
-  description = "CIDR principal"
+  description = "Main CIDR"
 }
 
 variable "vpc_additional_cidrs" {
   type        = list(string)
-  description = "CIDRs adicionais"
+  description = "VPC additional CIDRs"
   default     = [""]
 }
 
@@ -21,11 +22,12 @@ variable "default_tags" {
     dia     = ""
     repo    = ""
   }
+  description = "Default tags to be set in resources"
 }
 
 variable "region" {
   type        = string
-  description = "The AWS region"
+  description = "The AWS region that the structure will be deployed"
 }
 
 variable "publicsubnets" {
@@ -46,23 +48,25 @@ variable "podsubnets" {
 
 variable "databasesubnets" {
   type        = list(string)
-  description = "Database CIDR"
+  description = "Database subnet CIDR"
   default     = []
 }
 
 variable "database_nacl_rules" {
-  type = list(object({
-    rule_start_number = number
-    rule_action       = string
-    protocol          = string
-    from_port         = optional(number)
-    to_port           = optional(number)
-  }))
-  description = "ACL Rules to DB Subnet"
+  # type = list(object({
+  #   rule_start_number = number
+  #   rule_action       = string
+  #   protocol          = string
+  #   from_port         = optional(number)
+  #   to_port           = optional(number)
+  # }))
+  type        = list(map(string))  
+  description = "NACL rules that will be created in database subnet"
   default     = []
 }
 
 variable "singlenat" {
   type    = bool
   default = true
+  description = "Should it be deploy with a single NAT Gateway? If set to false, it will be deployed one each AZ"
 }
