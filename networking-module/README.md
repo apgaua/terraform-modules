@@ -51,17 +51,17 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_database_nacl_rules"></a> [database\_nacl\_rules](#input\_database\_nacl\_rules) | ACL Rules to DB Subnet | <pre>list(object({<br/>    rule_start_number = number<br/>    rule_action       = string<br/>    protocol          = string<br/>    from_port         = optional(number)<br/>    to_port           = optional(number)<br/>  }))</pre> | `[]` | no |
-| <a name="input_databasesubnets"></a> [databasesubnets](#input\_databasesubnets) | Database CIDR | `list(string)` | `[]` | no |
-| <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | n/a | `map(string)` | <pre>{<br/>  "contato": "",<br/>  "dia": "",<br/>  "repo": ""<br/>}</pre> | no |
+| <a name="input_database_nacl_rules"></a> [database\_nacl\_rules](#input\_database\_nacl\_rules) | NACL rules that will be created in database subnet | `list(map(string))` | `[]` | no |
+| <a name="input_databasesubnets"></a> [databasesubnets](#input\_databasesubnets) | Database subnet CIDR | `list(string)` | `[]` | no |
+| <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | Default tags to be set in resources | `map(string)` | <pre>{<br/>  "contato": "",<br/>  "dia": "",<br/>  "repo": ""<br/>}</pre> | no |
 | <a name="input_podsubnets"></a> [podsubnets](#input\_podsubnets) | POD subnet CIDR | `list(string)` | `[]` | no |
 | <a name="input_privatesubnets"></a> [privatesubnets](#input\_privatesubnets) | Private subnet CIDR | `list(string)` | n/a | yes |
-| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | VPC Variables | `string` | n/a | yes |
+| <a name="input_project_name"></a> [project\_name](#input\_project\_name) | VPC Variables | `string` | `"Name of the project"` | no |
 | <a name="input_publicsubnets"></a> [publicsubnets](#input\_publicsubnets) | Public subnet CIDR | `list(string)` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The AWS region | `string` | n/a | yes |
-| <a name="input_singlenat"></a> [singlenat](#input\_singlenat) | n/a | `bool` | `true` | no |
-| <a name="input_vpc_additional_cidrs"></a> [vpc\_additional\_cidrs](#input\_vpc\_additional\_cidrs) | CIDRs adicionais | `list(string)` | <pre>[<br/>  ""<br/>]</pre> | no |
-| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | CIDR principal | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The AWS region that the structure will be deployed | `string` | n/a | yes |
+| <a name="input_singlenat"></a> [singlenat](#input\_singlenat) | Should it be deploy with a single NAT Gateway? If set to false, it will be deployed one each AZ | `bool` | `true` | no |
+| <a name="input_vpc_additional_cidrs"></a> [vpc\_additional\_cidrs](#input\_vpc\_additional\_cidrs) | VPC additional CIDRs | `list(string)` | <pre>[<br/>  ""<br/>]</pre> | no |
+| <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | Main CIDR | `string` | n/a | yes |
 
 ## Outputs
 
