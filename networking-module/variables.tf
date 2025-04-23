@@ -16,7 +16,7 @@ variable "vpc_additional_cidrs" {
 }
 
 variable "default_tags" {
-  type = map(string)
+  type = list(map(string))
   default = {
     contato = ""
     dia     = ""
