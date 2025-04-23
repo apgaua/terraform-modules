@@ -9,7 +9,7 @@ resource "aws_subnet" "publicsubnets" {
   availability_zone = data.aws_availability_zones.azones.names[count.index]
   tags = merge(
     {
-      name = format("public-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
+      Name = format("public-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
     },
     var.default_tags
   )
@@ -23,7 +23,7 @@ resource "aws_route_table" "public_internet_access" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
-      name = format("public-%s", var.project_name)
+      Name = format("public-%s", var.project_name)
     },
     var.default_tags
   )

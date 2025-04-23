@@ -7,7 +7,7 @@ resource "aws_eip" "eip" {
   domain = "vpc"
   tags = merge(
     {
-      name = format("eip-%s", var.project_name)
+      Name = format("eip-%s", var.project_name)
     },
     var.default_tags
   )
@@ -21,7 +21,7 @@ resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    name = format("%s-igw", var.project_name)
+    Name = format("%s-igw", var.project_name)
   }
 }
 
@@ -35,7 +35,7 @@ resource "aws_nat_gateway" "main" {
   subnet_id     = aws_subnet.publicsubnets[count.index].id
 
   tags = {
-    name = format("%s-nat-gateway-%s", var.project_name, count.index)
+    Name = format("%s-nat-gateway-%s", var.project_name, count.index)
   }
   depends_on = [aws_internet_gateway.gw,
     aws_eip.eip,

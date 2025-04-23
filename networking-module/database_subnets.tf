@@ -24,7 +24,7 @@ resource "aws_subnet" "dbsubnets" {
   availability_zone = data.aws_availability_zones.azones.names[count.index]
   tags = merge(
     {
-      name = format("database-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
+      Name = format("database-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
     },
     var.default_tags
   )
@@ -48,7 +48,7 @@ resource "aws_network_acl" "database" {
 
   tags = merge(
     {
-      name = format("database-%s", var.project_name)
+      Name = format("database-%s", var.project_name)
     },
     var.default_tags
   )

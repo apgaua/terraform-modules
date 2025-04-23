@@ -9,7 +9,7 @@ resource "aws_subnet" "privatesubnets" {
   availability_zone = data.aws_availability_zones.azones.names[count.index]
   tags = merge(
     {
-      name = format("%s-private-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
+      Name = format("%s-private-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
     },
     var.default_tags
   )
@@ -23,7 +23,7 @@ resource "aws_subnet" "podsubnets" {
   availability_zone = data.aws_availability_zones.azones.names[count.index]
   tags = merge(
     {
-      name = format("%s-pod-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
+      Name = format("%s-pod-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])
     },
     var.default_tags
   )
@@ -39,7 +39,7 @@ resource "aws_route_table" "private_internet_access" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
-      name = format("private-%s", var.project_name)
+      Name = format("private-%s", var.project_name)
     },
     var.default_tags
   )
@@ -50,7 +50,7 @@ resource "aws_route_table" "pod_internet_access" {
   vpc_id = aws_vpc.main.id
   tags = merge(
     {
-      name = format("pod-%s", var.project_name)
+      Name = format("pod-%s", var.project_name)
     },
     var.default_tags
   )
