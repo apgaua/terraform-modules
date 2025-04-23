@@ -16,12 +16,12 @@ variable "vpc_additional_cidrs" {
 }
 
 variable "default_tags" {
-  type = list(map(string))
-  default = [{
+  type = map(string)
+  default = {
     contato = ""
     dia     = ""
     repo    = ""
-}]
+}
   description = "Default tags to be set in resources"
 }
 

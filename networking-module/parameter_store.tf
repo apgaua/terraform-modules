@@ -11,7 +11,7 @@ resource "aws_ssm_parameter" "publicsubnets" {
   value = aws_subnet.publicsubnets[count.index].id
   tags = merge(
     {
-      Name = format("%s/subnets/public/%s", var.project_name, aws_subnet.publicsubnets[count.index].availability_zone)
+      name = format("%s/subnets/public/%s", var.project_name, aws_subnet.publicsubnets[count.index].availability_zone)
     },
     var.default_tags
   )
@@ -25,7 +25,7 @@ resource "aws_ssm_parameter" "privatesubnets" {
   value = aws_subnet.privatesubnets[count.index].id
   tags = merge(
     {
-      Name = format("%s/subnets/private/%s", var.project_name, aws_subnet.privatesubnets[count.index].availability_zone)
+      name = format("%s/subnets/private/%s", var.project_name, aws_subnet.privatesubnets[count.index].availability_zone)
     },
     var.default_tags
   )
@@ -39,7 +39,7 @@ resource "aws_ssm_parameter" "podsubnets" {
   value = aws_subnet.podsubnets[count.index].id
   tags = merge(
     {
-      Name = format("%s/subnets/POD/%s", var.project_name, aws_subnet.podsubnets[count.index].availability_zone)
+      name = format("%s/subnets/POD/%s", var.project_name, aws_subnet.podsubnets[count.index].availability_zone)
     },
     var.default_tags
   )
@@ -52,7 +52,7 @@ resource "aws_ssm_parameter" "databasesubnets" {
   value = aws_subnet.dbsubnets[count.index].id
   tags = merge(
     {
-      Name = format("%s/subnets/database/%s", var.project_name, aws_subnet.dbsubnets[count.index].availability_zone)
+      name = format("%s/subnets/database/%s", var.project_name, aws_subnet.dbsubnets[count.index].availability_zone)
     },
     var.default_tags
   )
