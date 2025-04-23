@@ -1,3 +1,7 @@
+##################################################
+##################### SUBNET #####################
+##################################################
+
 resource "aws_subnet" "privatesubnets" {
   count             = length(var.privatesubnets)
   vpc_id            = aws_vpc.main.id
@@ -26,7 +30,10 @@ resource "aws_subnet" "podsubnets" {
   depends_on = [aws_vpc_ipv4_cidr_block_association.main]
 }
 
-#Route Table
+##################################################
+################### ROUTE TABLE ##################
+##################################################
+
 resource "aws_route_table" "private_internet_access" {
   count  = length(var.privatesubnets)
   vpc_id = aws_vpc.main.id
@@ -49,7 +56,10 @@ resource "aws_route_table" "pod_internet_access" {
   )
 }
 
-#Route
+##################################################
+###################### ROUTE #####################
+##################################################
+
 resource "aws_route" "private_access" {
   count                  = length(var.privatesubnets)
   route_table_id         = aws_route_table.private_internet_access[count.index].id
@@ -74,7 +84,10 @@ resource "aws_route" "pod_access" {
   ].id
 }
 
-#Route table association
+##################################################
+########### ROUTE TABLE ASSOCIATION ##############
+##################################################
+
 resource "aws_route_table_association" "private" {
   count          = length(var.privatesubnets)
   subnet_id      = aws_subnet.privatesubnets[count.index].id

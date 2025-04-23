@@ -1,3 +1,7 @@
+##################################################
+##################### SUBNET #####################
+##################################################
+
 resource "aws_subnet" "publicsubnets" {
   count             = length(var.publicsubnets)
   vpc_id            = aws_vpc.main.id
@@ -10,6 +14,11 @@ resource "aws_subnet" "publicsubnets" {
     var.default_tags
   )
 }
+
+##################################################
+################### ROUTE TABLE ##################
+##################################################
+
 resource "aws_route_table" "public_internet_access" {
   vpc_id = aws_vpc.main.id
   tags = merge(
@@ -20,11 +29,19 @@ resource "aws_route_table" "public_internet_access" {
   )
 }
 
+##################################################
+###################### ROUTE #####################
+##################################################
+
 resource "aws_route" "public_access" {
   route_table_id         = aws_route_table.public_internet_access.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.gw.id
 }
+
+##################################################
+########### ROUTE TABLE ASSOCIATION ##############
+##################################################
 
 resource "aws_route_table_association" "public" {
   count          = length(var.publicsubnets)
