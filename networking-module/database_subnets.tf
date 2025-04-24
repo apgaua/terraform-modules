@@ -46,15 +46,6 @@ resource "aws_network_acl" "database" {
     to_port    = 0
   }
 
-  ingress {
-    rule_no    = 300
-    protocol   = "-1"
-    action     = "deny"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
-  }
-
   tags = merge(
     {
       Name = format("database-%s", var.project_name)
@@ -91,14 +82,3 @@ resource "aws_network_acl_rule" "ingress" {
   from_port   = local.nacl[count.index].from_port
   to_port     = local.nacl[count.index].to_port
 }
-
-# resource "aws_network_acl_rule" "deny" {
-#   network_acl_id = aws_network_acl.database.id
-#   rule_number    = 300
-# #  egress         = false
-#   rule_action = "deny"
-#   protocol    = "-1"
-#   cidr_block  = "0.0.0.0/0"
-#   from_port   = 0
-#   to_port     = 0
-# }
