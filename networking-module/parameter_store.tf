@@ -14,7 +14,7 @@ resource "aws_ssm_parameter" "vpc_additional_cidrs" {
   count = length(var.vpc_additional_cidrs)
   name = format("/%s/vpc/additional_cidrs/%s", var.project_name, count.index)
   type = "String"
-  value = aws_vpc_ipv4_cidr_block_association.main[count.index].cidr_block
+  value = aws_vpc_ipv4_cidr_block_association.main[count.index].id
     tags = merge(
     {
       Name = format("%s/vpc/additional_cidrs/%s", var.project_name, count.index)
