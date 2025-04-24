@@ -2,6 +2,25 @@ resource "aws_ssm_parameter" "vpc" {
   name  = "/${var.project_name}/vpc/id"
   type  = "String"
   value = aws_vpc.main.id
+      tags = merge(
+    {
+      Name = format("%s/vpc/id", var.project_name)
+    },
+    var.default_tags
+  )
+}
+
+resource "aws_ssm_parameter" "vpc_additional_cidrs" {
+  count = length(var.vpc_additional_cidrs)
+  name = format("/%s/vpc/additional_cidrs/%s", var.project_name, count.index)
+  type = "String"
+  value = var.vpc_additional_cidrs[count.index].id
+    tags = merge(
+    {
+      Name = format("%s/vpc/additional_cidrs/%s", var.project_name, count.index)
+    },
+    var.default_tags
+  )
 }
 
 resource "aws_ssm_parameter" "publicsubnets" {
