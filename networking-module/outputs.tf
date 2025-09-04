@@ -2,7 +2,7 @@ output "ssm_vpc_id" {
   value = aws_ssm_parameter.vpc.id
 }
 
-output "vpc_additional_cidrs" {
+output "ssm_vpc_additional_cidrs" {
  value = aws_ssm_parameter.vpc_additional_cidrs[*].value
 }
 
