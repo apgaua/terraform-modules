@@ -8,7 +8,7 @@ resource "aws_subnet" "privatesubnets" {
   cidr_block        = var.privatesubnets[count.index]
   availability_zone = data.aws_availability_zones.azones.names[count.index]
 
-  tags = merge({Name = format("%s-private-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])}, var.default_tags)
+  tags       = merge({ Name = format("%s-private-%s", var.project_name, data.aws_availability_zones.azones.names[count.index]) }, var.default_tags)
   depends_on = [aws_vpc_ipv4_cidr_block_association.main]
 }
 
@@ -18,7 +18,7 @@ resource "aws_subnet" "podsubnets" {
   cidr_block        = var.podsubnets[count.index]
   availability_zone = data.aws_availability_zones.azones.names[count.index]
 
-  tags = merge({Name = format("%s-pod-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])}, var.default_tags)
+  tags       = merge({ Name = format("%s-pod-%s", var.project_name, data.aws_availability_zones.azones.names[count.index]) }, var.default_tags)
   depends_on = [aws_vpc_ipv4_cidr_block_association.main]
 }
 
@@ -29,15 +29,15 @@ resource "aws_subnet" "podsubnets" {
 resource "aws_route_table" "private_internet_access" {
   count  = length(var.privatesubnets)
   vpc_id = aws_vpc.main.id
-  
-  tags = merge({Name = format("private-%s", var.project_name)},var.default_tags)
+
+  tags = merge({ Name = format("private-%s", var.project_name) }, var.default_tags)
 }
 
 resource "aws_route_table" "pod_internet_access" {
   count  = length(var.podsubnets)
   vpc_id = aws_vpc.main.id
 
-  tags = merge({Name = format("pod-%s", var.project_name)}, var.default_tags)
+  tags = merge({ Name = format("pod-%s", var.project_name) }, var.default_tags)
 }
 
 ##################################################

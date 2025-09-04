@@ -3,7 +3,7 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 
-  tags = merge ({Name = var.project_name}, var.default_tags)
+  tags = merge({ Name = var.project_name }, var.default_tags)
 }
 
 resource "aws_vpc_ipv4_cidr_block_association" "main" {

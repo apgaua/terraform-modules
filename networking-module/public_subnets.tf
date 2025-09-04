@@ -8,7 +8,7 @@ resource "aws_subnet" "publicsubnets" {
   cidr_block        = var.publicsubnets[count.index]
   availability_zone = data.aws_availability_zones.azones.names[count.index]
 
-  tags = merge({Name = format("public-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index])}, var.default_tags)
+  tags = merge({ Name = format("public-%s-%s", var.project_name, data.aws_availability_zones.azones.names[count.index]) }, var.default_tags)
 }
 
 ##################################################
@@ -17,8 +17,8 @@ resource "aws_subnet" "publicsubnets" {
 
 resource "aws_route_table" "public_internet_access" {
   vpc_id = aws_vpc.main.id
-  
-  tags = merge({Name = format("public-%s", var.project_name)},var.default_tags)
+
+  tags = merge({ Name = format("public-%s", var.project_name) }, var.default_tags)
 }
 
 ##################################################

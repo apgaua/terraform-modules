@@ -73,4 +73,5 @@ No modules.
 | <a name="output_ssm_private_subnets"></a> [ssm\_private\_subnets](#output\_ssm\_private\_subnets) | SSM Parameters about private subnets id |
 | <a name="output_ssm_public_subnets"></a> [ssm\_public\_subnets](#output\_ssm\_public\_subnets) | SSM Parameters about public subnets id |
 | <a name="output_ssm_vpc_id"></a> [ssm\_vpc\_id](#output\_ssm\_vpc\_id) | n/a |
+| <a name="output_vpc_additional_cidrs"></a> [vpc\_additional\_cidrs](#output\_vpc\_additional\_cidrs) | n/a |
 <!-- END_TF_DOCS -->

@@ -22,7 +22,7 @@ variable "default_tags" {
     Curso   = ""
     Dia     = ""
     Repo    = ""
-}
+  }
   description = "Default tags to be set in resources"
 }
 
