@@ -2,10 +2,6 @@ output "ssm_vpc_id" {
   value = aws_ssm_parameter.vpc.id
 }
 
-output "ssm_vpc_additional_cidrs" {
- value = aws_ssm_parameter.vpc_additional_cidrs[*].value
-}
-
 output "ssm_public_subnets" {
   value       = aws_ssm_parameter.publicsubnets[*].id
   description = "SSM Parameters about public subnets id"
