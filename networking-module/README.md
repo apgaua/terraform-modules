@@ -39,7 +39,6 @@ No modules.
 | [aws_ssm_parameter.privatesubnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.publicsubnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_ssm_parameter.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
-| [aws_ssm_parameter.vpc_additional_cidrs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 | [aws_subnet.dbsubnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_subnet.podsubnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
 | [aws_subnet.privatesubnets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet) | resource |
@@ -72,6 +71,5 @@ No modules.
 | <a name="output_ssm_pod_subnets"></a> [ssm\_pod\_subnets](#output\_ssm\_pod\_subnets) | SSM Parameters about POD subnets id |
 | <a name="output_ssm_private_subnets"></a> [ssm\_private\_subnets](#output\_ssm\_private\_subnets) | SSM Parameters about private subnets id |
 | <a name="output_ssm_public_subnets"></a> [ssm\_public\_subnets](#output\_ssm\_public\_subnets) | SSM Parameters about public subnets id |
-| <a name="output_ssm_vpc_additional_cidrs"></a> [ssm\_vpc\_additional\_cidrs](#output\_ssm\_vpc\_additional\_cidrs) | n/a |
 | <a name="output_ssm_vpc_id"></a> [ssm\_vpc\_id](#output\_ssm\_vpc\_id) | n/a |
 <!-- END_TF_DOCS -->

@@ -6,15 +6,6 @@ resource "aws_ssm_parameter" "vpc" {
   tags = merge({ Name = format("%s/vpc/id", var.project_name) }, var.default_tags)
 }
 
-resource "aws_ssm_parameter" "vpc_additional_cidrs" {
-  count = length(var.vpc_additional_cidrs)
-  name  = format("/%s/vpc/additional_cidrs/%s", var.project_name, count.index)
-  type  = "String"
-  value = aws_vpc_ipv4_cidr_block_association.main[count.index].id
-
-  tags = merge({ Name = format("%s/vpc/additional_cidrs/%s", var.project_name, count.index) }, var.default_tags)
-}
-
 resource "aws_ssm_parameter" "publicsubnets" {
   count = length(aws_subnet.publicsubnets)
   name  = format("/%s/subnets/public/%s", var.project_name, replace(aws_subnet.publicsubnets[count.index].availability_zone, "-", "_"))
