@@ -3,7 +3,7 @@ output "ssm_vpc_id" {
 }
 
 output "vpc_additional_cidrs" {
-  value = aws_ssm_parameter.vpc_additional_cidrs[*].value
+ value = aws_ssm_parameter.vpc_additional_cidrs[*].value
 }
 
 output "ssm_public_subnets" {
