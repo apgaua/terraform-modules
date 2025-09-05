@@ -1,5 +1,5 @@
 resource "aws_eks_node_group" "main" {
-  count = lenght(var.nodes)
+  count = length(var.nodes)
   cluster_name    = aws_eks_cluster.main.id
   node_group_name = var.nodes[count.index].node_group_name
   node_role_arn   = aws_iam_role.eks_nodes_role.arn
