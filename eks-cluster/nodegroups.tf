@@ -3,6 +3,7 @@ resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.id
   node_group_name = format("%s-%s", aws_eks_cluster.main.id, var.nodegroup[count.index].capacity_type)
   node_role_arn   = aws_iam_role.eks_nodes_role.arn
+  ami_type = var.nodegroup[count.index].ami_type
   instance_types  = var.nodegroup[count.index].instance_types
   subnet_ids      = data.aws_ssm_parameter.pod_subnets[*].value
 
