@@ -33,6 +33,7 @@ variable "cluster" {
 
 variable "nodegroup" {
   type = list(object({
+    name_suffix      = string
     instance_types  = list(string)
     capacity_type   = optional(string, "SPOT") # or ON_DEMAND
     ami_type       = optional(string)
