@@ -48,7 +48,7 @@ data "aws_iam_policy_document" "autoscaler" {
   }
 }
 
-resource "aws_iam_role" "eks_autoscaler_role" {
+resource "aws_iam_role" "autoscaler" {
   name               = format("%s-autoscaler-role", var.project_name)
   assume_role_policy = data.aws_iam_policy_document.autoscaler.json
   tags = merge(
