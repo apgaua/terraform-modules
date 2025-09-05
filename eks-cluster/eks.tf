@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "main" {
   name     = var.project_name
-  version  = var.kubernetes_version
+  version  = var.cluster[0].kubernetes_version
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
@@ -17,18 +17,18 @@ resource "aws_eks_cluster" "main" {
   }
 
   access_config {
-    authentication_mode                         = "API_AND_CONFIG_MAP"
-    bootstrap_cluster_creator_admin_permissions = true
+    authentication_mode                         = var.cluster[0].access_config.authentication_mode
+    bootstrap_cluster_creator_admin_permissions = var.cluster[0].access_config.bootstrap_cluster_creator_admin_permissions
   }
 
-  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  enabled_cluster_log_types = var.cluster[0].enabled_cluster_log_types
 
   zonal_shift_config {
-    enabled = var.zonal_shift
+    enabled = var.cluster[0].zonal_shift
   }
 
   upgrade_policy {
-    support_type = var.upgrade_policy_support_type
+    support_type = var.cluster[0].upgrade_policy_support_type
   }
 
   depends_on = [
