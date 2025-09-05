@@ -20,18 +20,32 @@ variable "cluster" {
     }))
     upgrade_policy_support_type = string
       enabled_cluster_log_types   = list(string)
-    auto_scale_options = list(object({
-      min = number
-      max = number
-      desired = number
-    }))
-    node_instance_type = list(string)
     addons = optional(list(object({
       name  = string
       version = string
     })), [])
   }))
 }
+
+################################################################################
+############################## NODES VARIABLES #################################
+################################################################################
+
+variable "nodes" {
+  type = list(object({
+    node_group_name   = string
+    instance_types = list(string)
+    auto_scale_options = list(object({
+      min = number
+      max = number
+      desired = number
+    }))
+  }))
+}
+
+################################################################################
+#################################### HELM CHARTS ###############################
+################################################################################
 
 variable "helm_charts" {
   type = list(object({
