@@ -10,46 +10,43 @@ variable "region" {
 ########################### CLUSTER VARIABLES ##################################
 ################################################################################
 
-variable "kubernetes_version" {
-  type    = string
-  default = "1.27"
+variable "cluster" {
+  type = list(object({
+    kubernetes_version = string
+    zonal_shift  = bool
+    access_config = optional(object({
+      authentication_mode                         = string
+      bootstrap_cluster_creator_admin_permissions = bool
+    }))
+    upgrade_policy_support_type = string
+      enabled_cluster_log_types   = list(string)
+    auto_scale_options = list(object({
+      min = number
+      max = number
+      desired = number
+    }))
+    node_instance_type = list(string)
+    addon_cni_version     = string
+    addon_coredns_version = string
+    addon_kubeproxy_version = string
+  }))
 }
 
-variable "zonal_shift" {
-  type    = bool
-  default = false
-}
-
-variable "upgrade_policy_support_type" {
-  type    = string
-  default = "STANDARD"
-}
-
-variable "auto_scale_options" {
-  type = object({
-    min     = number
-    max     = number
-    desired = number
-  })
-}
-
-variable "node_instance_type" {
-  type = list(string)
-}
-
-variable "addon_cni_version" {
-  type    = string
-  default = "v1.19.5-eksbuild.1"
-}
-
-variable "addon_coredns_version" {
-  type    = string
-  default = "v1.11.4-eksbuild.2"
-}
-
-variable "addon_kubeproxy_version" {
-  type    = string
-  default = "v1.32.0-eksbuild.2"
+variable "helm_charts" {
+  type = list(object({
+    name             = string
+    repository       = string
+    chart            = string
+    namespace        = string
+    create_namespace = optional(bool, false)
+    wait             = optional(bool, false)
+    version          = optional(string, null)
+    set              = optional(list(object({
+      name  = string
+      value = string
+    })), [])
+  }))
+  default = []
 }
 
 ################################################################################
