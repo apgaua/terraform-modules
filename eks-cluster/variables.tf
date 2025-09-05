@@ -26,9 +26,10 @@ variable "cluster" {
       desired = number
     }))
     node_instance_type = list(string)
-    addon_cni_version     = string
-    addon_coredns_version = string
-    addon_kubeproxy_version = string
+    addons = optional(list(object({
+      name  = string
+      version = string
+    })), [])
   }))
 }
 
