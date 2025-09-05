@@ -1,18 +1,24 @@
 resource "aws_eks_node_group" "main" {
+  count = lenght(var.nodes)
   cluster_name    = aws_eks_cluster.main.id
-  node_group_name = aws_eks_cluster.main.id
+  node_group_name = var.nodes[count.index].node_group_name
   node_role_arn   = aws_iam_role.eks_nodes_role.arn
-  instance_types  = var.cluster[0].node_instance_type
+  instance_types  = var.nodes[count.index].instance_types
   subnet_ids      = data.aws_ssm_parameter.pod_subnets[*].value
 
   scaling_config {
-    desired_size = var.cluster[0].auto_scale_options[0].desired
-    max_size     = var.cluster[0].auto_scale_options[0].max
-    min_size     = var.cluster[0].auto_scale_options[0].min
+    desired_size = var.nodes[count.index].auto_scale_options[0].desired
+    max_size     = var.nodes[count.index].auto_scale_options[0].max
+    min_size     = var.nodes[count.index].auto_scale_options[0].min
   }
 
+  capacity_type = "ON_DEMAND" # or SPOT
+  
   labels = {
     "ingress/ready" = "true"
+    "capacity/os" = "AMAZON_LINUX"
+    "capacity/type" = "ON_DEMAND"
+    "capacity/arch" = "x86_64"
   }
 
   lifecycle {
