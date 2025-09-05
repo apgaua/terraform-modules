@@ -24,7 +24,7 @@ resource "helm_release" "cluster_autoscaler" {
   },
   {
     name  = "awsRegion"
-    value = data.aws_region.current.id
+    value = var.region
   },
   {
     name  = "rbac.serviceAccount.create"
@@ -36,15 +36,15 @@ resource "helm_release" "cluster_autoscaler" {
   },
   {
     name  = "autoscalingGroups[0].name"
-    value = aws_eks_node_group.main.resources[0].autoscaling_groups[0].name
+    value = aws_eks_node_group.main[0].resources[0].autoscaling_groups[0].name
   },
   {
     name  = "autoscalingGroups[0].maxSize"
-    value = aws_eks_node_group.main.scaling_config[0].max_size
+    value = aws_eks_node_group.main[0].scaling_config[0].max_size
   },
   {
     name  = "autoscalingGroups[0].minSize"
-    value = aws_eks_node_group.main.scaling_config[0].min_size
+    value = aws_eks_node_group.main[0].scaling_config[0].min_size
   }
   ]
 
