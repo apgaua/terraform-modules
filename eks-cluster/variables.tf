@@ -13,15 +13,15 @@ variable "region" {
 variable "cluster" {
   type = list(object({
     kubernetes_version = string
-    zonal_shift  = bool
+    zonal_shift        = bool
     access_config = optional(object({
       authentication_mode                         = string
       bootstrap_cluster_creator_admin_permissions = bool
     }))
     upgrade_policy_support_type = string
-      enabled_cluster_log_types   = list(string)
+    enabled_cluster_log_types   = list(string)
     addons = optional(list(object({
-      name  = string
+      name    = string
       version = string
     })), [])
   }))
@@ -33,13 +33,17 @@ variable "cluster" {
 
 variable "nodes" {
   type = list(object({
-    node_group_name   = string
-    instance_types = list(string)
+    node_group_name = string
+    instance_types  = list(string)
     auto_scale_options = list(object({
-      min = number
-      max = number
+      min     = number
+      max     = number
       desired = number
     }))
+    labels = optional(list(object({
+      key   = string
+      value = string
+    })), [])
   }))
 }
 
@@ -56,7 +60,7 @@ variable "helm_charts" {
     create_namespace = optional(bool, false)
     wait             = optional(bool, false)
     version          = optional(string, null)
-    set              = optional(list(object({
+    set = optional(list(object({
       name  = string
       value = string
     })), [])

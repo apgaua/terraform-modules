@@ -1,5 +1,5 @@
 resource "aws_eks_node_group" "main" {
-  count = length(var.nodes)
+  count           = length(var.nodes)
   cluster_name    = aws_eks_cluster.main.id
   node_group_name = var.nodes[count.index].node_group_name
   node_role_arn   = aws_iam_role.eks_nodes_role.arn
@@ -13,13 +13,8 @@ resource "aws_eks_node_group" "main" {
   }
 
   capacity_type = "ON_DEMAND" # or SPOT
-  
-  labels = {
-    "ingress/ready" = "true"
-    "capacity/os" = "AMAZON_LINUX"
-    "capacity/type" = "ON_DEMAND"
-    "capacity/arch" = "x86_64"
-  }
+
+  labels = var.nodes[count.index].labels
 
   lifecycle {
     ignore_changes = [
