@@ -10,3 +10,46 @@ resource "helm_release" "main" {
 
   depends_on = [aws_eks_cluster.main, aws_eks_node_group.main]
 }
+
+resource "helm_release" "cluster_autoscaler" {
+  name  = "aws-cluster-autoscaler"
+  repository = "https://kubernetes.github.io/autoscaler"
+  chart = "cluster-autoscaler"
+  namespace        = "kube-system"
+  create_namespace = true
+
+  set = [{
+    name  = "replicaCount"
+    value = 1
+  },
+  {
+    name  = "awsRegion"
+    value = data.aws_region.current.id
+  },
+  {
+    name  = "rbac.serviceAccount.create"
+    value = true
+  },
+  {
+    name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = aws_iam_role.autoscaler.arn
+  },
+  {
+    name  = "autoscalingGroups[0].name"
+    value = aws_eks_node_group.main.resources[0].autoscaling_groups[0].name
+  },
+  {
+    name  = "autoscalingGroups[0].maxSize"
+    value = aws_eks_node_group.main.scaling_config[0].max_size
+  },
+  {
+    name  = "autoscalingGroups[0].minSize"
+    value = aws_eks_node_group.main.scaling_config[0].min_size
+  }
+  ]
+
+  depends_on = [
+    aws_eks_cluster.main,
+    aws_eks_node_group.main,
+  ]
+}
