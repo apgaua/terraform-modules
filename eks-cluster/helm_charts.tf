@@ -6,7 +6,7 @@ resource "helm_release" "main" {
   namespace  = var.helm_charts[count.index].namespace
   wait       = var.helm_charts[count.index].wait
   version    = var.helm_charts[count.index].version
-  set = var.helm_charts[count.index].set[*].value
+  set = var.helm_charts[count.index].set
 
   depends_on = [aws_eks_cluster.main, aws_eks_node_group.main]
 }
