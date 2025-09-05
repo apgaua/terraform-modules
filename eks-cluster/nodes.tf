@@ -6,9 +6,9 @@ resource "aws_eks_node_group" "main" {
   subnet_ids      = data.aws_ssm_parameter.pod_subnets[*].value
 
   scaling_config {
-    desired_size = var.cluster[0].auto_scale_options.desired
-    max_size     = var.cluster[0].auto_scale_options.max
-    min_size     = var.cluster[0].auto_scale_options.min
+    desired_size = var.cluster[0].auto_scale_options[0].desired
+    max_size     = var.cluster[0].auto_scale_options[0].max
+    min_size     = var.cluster[0].auto_scale_options[0].min
   }
 
   labels = {
