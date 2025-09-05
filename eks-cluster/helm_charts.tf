@@ -65,7 +65,7 @@ resource "helm_release" "node_termination_handler" {
   },
   {
     name  = "awsRegion"
-    value = data.aws_region.current.id
+    value = var.region
   },
   {
     name  = "queueURL"
