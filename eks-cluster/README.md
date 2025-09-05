@@ -58,21 +58,15 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_addon_cni_version"></a> [addon\_cni\_version](#input\_addon\_cni\_version) | n/a | `string` | `"v1.19.5-eksbuild.1"` | no |
-| <a name="input_addon_coredns_version"></a> [addon\_coredns\_version](#input\_addon\_coredns\_version) | n/a | `string` | `"v1.11.4-eksbuild.2"` | no |
-| <a name="input_addon_kubeproxy_version"></a> [addon\_kubeproxy\_version](#input\_addon\_kubeproxy\_version) | n/a | `string` | `"v1.32.0-eksbuild.2"` | no |
-| <a name="input_auto_scale_options"></a> [auto\_scale\_options](#input\_auto\_scale\_options) | n/a | <pre>object({<br/>    min     = number<br/>    max     = number<br/>    desired = number<br/>  })</pre> | n/a | yes |
+| <a name="input_cluster"></a> [cluster](#input\_cluster) | n/a | <pre>list(object({<br/>    kubernetes_version = string<br/>    zonal_shift  = bool<br/>    access_config = optional(object({<br/>      authentication_mode                         = string<br/>      bootstrap_cluster_creator_admin_permissions = bool<br/>    }))<br/>    upgrade_policy_support_type = string<br/>      enabled_cluster_log_types   = list(string)<br/>    auto_scale_options = list(object({<br/>      min = number<br/>      max = number<br/>      desired = number<br/>    }))<br/>    node_instance_type = list(string)<br/>    addon_cni_version     = string<br/>    addon_coredns_version = string<br/>    addon_kubeproxy_version = string<br/>  }))</pre> | n/a | yes |
 | <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | Default tags to be set in resources | `map(string)` | n/a | yes |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | n/a | `string` | `"1.27"` | no |
-| <a name="input_node_instance_type"></a> [node\_instance\_type](#input\_node\_instance\_type) | n/a | `list(string)` | n/a | yes |
+| <a name="input_helm_charts"></a> [helm\_charts](#input\_helm\_charts) | n/a | <pre>list(object({<br/>    name             = string<br/>    repository       = string<br/>    chart            = string<br/>    namespace        = string<br/>    create_namespace = optional(bool, false)<br/>    wait             = optional(bool, false)<br/>    version          = optional(string, null)<br/>    set              = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>  }))</pre> | `[]` | no |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | n/a | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
 | <a name="input_ssm_pod_subnets"></a> [ssm\_pod\_subnets](#input\_ssm\_pod\_subnets) | n/a | `list(string)` | n/a | yes |
 | <a name="input_ssm_private_subnets"></a> [ssm\_private\_subnets](#input\_ssm\_private\_subnets) | n/a | `list(string)` | n/a | yes |
 | <a name="input_ssm_public_subnets"></a> [ssm\_public\_subnets](#input\_ssm\_public\_subnets) | n/a | `list(string)` | n/a | yes |
 | <a name="input_ssm_vpc_id"></a> [ssm\_vpc\_id](#input\_ssm\_vpc\_id) | n/a | `string` | n/a | yes |
-| <a name="input_upgrade_policy_support_type"></a> [upgrade\_policy\_support\_type](#input\_upgrade\_policy\_support\_type) | n/a | `string` | `"STANDARD"` | no |
-| <a name="input_zonal_shift"></a> [zonal\_shift](#input\_zonal\_shift) | n/a | `bool` | `false` | no |
 
 ## Outputs
 
