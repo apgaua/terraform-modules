@@ -23,8 +23,6 @@ No modules.
 |------|------|
 | [aws_eks_access_entry.nodes](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_access_entry) | resource |
 | [aws_eks_addon.cni](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.coredns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) | resource |
-| [aws_eks_addon.kubeproxy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_addon) | resource |
 | [aws_eks_cluster.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster) | resource |
 | [aws_eks_node_group.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_node_group) | resource |
 | [aws_iam_instance_profile.eks_nodes_profile](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
@@ -58,7 +56,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cluster"></a> [cluster](#input\_cluster) | n/a | <pre>list(object({<br/>    kubernetes_version = string<br/>    zonal_shift  = bool<br/>    access_config = optional(object({<br/>      authentication_mode                         = string<br/>      bootstrap_cluster_creator_admin_permissions = bool<br/>    }))<br/>    upgrade_policy_support_type = string<br/>      enabled_cluster_log_types   = list(string)<br/>    auto_scale_options = list(object({<br/>      min = number<br/>      max = number<br/>      desired = number<br/>    }))<br/>    node_instance_type = list(string)<br/>    addon_cni_version     = string<br/>    addon_coredns_version = string<br/>    addon_kubeproxy_version = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_cluster"></a> [cluster](#input\_cluster) | n/a | <pre>list(object({<br/>    kubernetes_version = string<br/>    zonal_shift  = bool<br/>    access_config = optional(object({<br/>      authentication_mode                         = string<br/>      bootstrap_cluster_creator_admin_permissions = bool<br/>    }))<br/>    upgrade_policy_support_type = string<br/>      enabled_cluster_log_types   = list(string)<br/>    auto_scale_options = list(object({<br/>      min = number<br/>      max = number<br/>      desired = number<br/>    }))<br/>    node_instance_type = list(string)<br/>    addons = optional(list(object({<br/>      name  = string<br/>      version = string<br/>    })), [])<br/>  }))</pre> | n/a | yes |
 | <a name="input_default_tags"></a> [default\_tags](#input\_default\_tags) | Default tags to be set in resources | `map(string)` | n/a | yes |
 | <a name="input_helm_charts"></a> [helm\_charts](#input\_helm\_charts) | n/a | <pre>list(object({<br/>    name             = string<br/>    repository       = string<br/>    chart            = string<br/>    namespace        = string<br/>    create_namespace = optional(bool, false)<br/>    wait             = optional(bool, false)<br/>    version          = optional(string, null)<br/>    set              = optional(list(object({<br/>      name  = string<br/>      value = string<br/>    })), [])<br/>  }))</pre> | `[]` | no |
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | n/a | `string` | n/a | yes |
