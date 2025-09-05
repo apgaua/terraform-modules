@@ -1,4 +1,4 @@
-# Módulo para utilização em estruturas terraform de ECS e EKS.
+# VPC and subnets configuration module
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
