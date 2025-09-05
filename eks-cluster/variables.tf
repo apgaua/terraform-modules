@@ -31,19 +31,17 @@ variable "cluster" {
 ############################## NODES VARIABLES #################################
 ################################################################################
 
-variable "nodes" {
+variable "nodegroup" {
   type = list(object({
     node_group_name = string
     instance_types  = list(string)
+    capacity_type   = optional(string, "SPOT") # or ON_DEMAND
     auto_scale_options = list(object({
       min     = number
       max     = number
       desired = number
     }))
-    labels = optional(list(object({
-      key   = string
-      value = string
-    })), [])
+    labels = optional(map(string), {})
   }))
 }
 
