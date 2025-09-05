@@ -35,6 +35,7 @@ variable "nodegroup" {
   type = list(object({
     instance_types  = list(string)
     capacity_type   = optional(string, "SPOT") # or ON_DEMAND
+    ami_type       = optional(string)
     auto_scale_options = list(object({
       min     = number
       max     = number
