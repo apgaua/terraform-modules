@@ -18,7 +18,7 @@ variable "cluster" {
       authentication_mode                         = string
       bootstrap_cluster_creator_admin_permissions = bool
     }))
-    enable_fargate = optional(bool, false)
+    eks_mode = optional(string, "NODEGROUPS") # FARGATE | NODEGROUPS | FULLFARGATE
     enable_cluster_autoscaler = optional(bool, false)
     fargate_namespace = optional(list(string), [])
     upgrade_policy_support_type = string
@@ -34,7 +34,7 @@ variable "cluster" {
 ############################## NODES VARIABLES #################################
 ################################################################################
 
-variable "nodegroup" {
+variable "nodegroup" {  
   type = list(object({
     name_suffix      = string
     instance_types  = list(string)
