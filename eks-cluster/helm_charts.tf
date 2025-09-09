@@ -12,6 +12,7 @@ resource "helm_release" "main" {
 }
 
 resource "helm_release" "cluster_autoscaler" {
+  count = var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   name  = "aws-cluster-autoscaler"
   repository = "https://kubernetes.github.io/autoscaler"
   chart = "cluster-autoscaler"
@@ -32,7 +33,7 @@ resource "helm_release" "cluster_autoscaler" {
   },
   {
     name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = aws_iam_role.autoscaler.arn
+    value = aws_iam_role.autoscaler[0].arn
   },
   {
     name  = "autoscalingGroups[0].name"
@@ -47,7 +48,6 @@ resource "helm_release" "cluster_autoscaler" {
     value = aws_eks_node_group.main[0].scaling_config[0].min_size
   }
   ]
-
   depends_on = [aws_eks_cluster.main, aws_eks_node_group.main]
 }
 

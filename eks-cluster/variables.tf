@@ -18,6 +18,9 @@ variable "cluster" {
       authentication_mode                         = string
       bootstrap_cluster_creator_admin_permissions = bool
     }))
+    enable_fargate = optional(bool, false)
+    enable_cluster_autoscaler = optional(bool, false)
+    fargate_namespace = optional(list(string), [])
     upgrade_policy_support_type = string
     enabled_cluster_log_types   = list(string)
     addons = optional(list(object({

@@ -1,5 +1,5 @@
 ################################################################################
-################################## CLUSTER #####################################
+################################## EKS CLUSTER #################################
 ################################################################################
 
 
@@ -34,10 +34,42 @@ resource "aws_iam_role_policy_attachment" "eks_service_policy" {
 }
 
 ################################################################################
+############################### EKS FARGATE PROFILE ############################
+################################################################################
+
+data "aws_iam_policy_document" "fargate"{
+  count = length(var.cluster) > 0 && var.cluster[0].enable_fargate ? 1 : 0
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["eks-fargate-pods.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "fargate_cluster_role" {
+  count = length(var.cluster) > 0 && var.cluster[0].enable_fargate ? 1 : 0
+  name               = format("%s-fargate-role", var.project_name)
+  assume_role_policy = data.aws_iam_policy_document.fargate[count.index].json
+  tags = {
+    Name = "${var.project_name}-fargate-cluster"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "fargate" {
+  count = length(var.cluster) > 0 && var.cluster[0].enable_fargate ? 1 : 0
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
+  role       = aws_iam_role.fargate_cluster_role[count.index].name
+}
+
+
+################################################################################
 ############################# CLUSTER AUTOSCALER ###############################
 ################################################################################
 
 data "aws_iam_policy_document" "autoscaler" {
+count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
     effect  = "Allow"
@@ -49,8 +81,9 @@ data "aws_iam_policy_document" "autoscaler" {
 }
 
 resource "aws_iam_role" "autoscaler" {
+count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   name               = format("%s-autoscaler-role", var.project_name)
-  assume_role_policy = data.aws_iam_policy_document.autoscaler.json
+  assume_role_policy = data.aws_iam_policy_document.autoscaler[0].json
   tags = merge(
     {
     Name = "${var.project_name}-eks-autoscaler"
@@ -59,6 +92,7 @@ resource "aws_iam_role" "autoscaler" {
 }
 
 data "aws_iam_policy_document" "autoscaler_policy" {
+count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   version = "2012-10-17"
 
   statement {
@@ -100,9 +134,10 @@ data "aws_iam_policy_document" "autoscaler_policy" {
 }
 
 resource "aws_iam_policy" "autoscaler" {
+  count      = var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   name        = format("%s-autoscaler-policy", var.project_name)
   description = "IAM policy for EKS Cluster Autoscaler"
-  policy      = data.aws_iam_policy_document.autoscaler_policy.json
+  policy      = data.aws_iam_policy_document.autoscaler_policy[0].json
   tags = merge(
     {
     Name = "${var.project_name}-eks-autoscaler"
@@ -111,8 +146,9 @@ resource "aws_iam_policy" "autoscaler" {
 }
 
 resource "aws_iam_role_policy_attachment" "autoscaler" {
-  role       = aws_iam_role.autoscaler.name
-  policy_arn = aws_iam_policy.autoscaler.arn
+  count     = var.cluster[0].enable_cluster_autoscaler ? 1 : 0
+  role       = aws_iam_role.autoscaler[0].name
+  policy_arn = aws_iam_policy.autoscaler[0].arn
 } 
 
 ################################################################################
