@@ -8,7 +8,7 @@ resource "helm_release" "main" {
   version    = var.helm_charts[count.index].version
   set        = var.helm_charts[count.index].set
 
-depends_on = aws_eks_cluster.mail
+depends_on = [aws_eks_cluster.main]
 }
 
 resource "helm_release" "cluster_autoscaler" {
@@ -48,7 +48,7 @@ resource "helm_release" "cluster_autoscaler" {
     value = aws_eks_node_group.main[0].scaling_config[0].min_size
   }
   ]
-depends_on = aws_eks_cluster.main
+depends_on = [aws_eks_cluster.main]
 }
 
 resource "helm_release" "node_termination_handler" {
