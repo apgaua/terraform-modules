@@ -69,7 +69,7 @@ resource "aws_iam_role_policy_attachment" "fargate" {
 ################################################################################
 
 data "aws_iam_policy_document" "autoscaler" {
-count = length(var.cluster) > 0 && var.cluster.enable_cluster_autoscaler[0] ? 1 : 0
+count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
     effect  = "Allow"
