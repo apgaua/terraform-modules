@@ -249,35 +249,35 @@ resource "aws_iam_role" "eks_nodes_role" {
 resource "aws_iam_role_policy_attachment" "cni" {
   count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.eks_nodes_role.name
+  role       = aws_iam_role.eks_nodes_role[0].name
 }
 
 resource "aws_iam_role_policy_attachment" "nodes" {
   count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.eks_nodes_role.name
+  role       = aws_iam_role.eks_nodes_role[0].name
 }
 
 resource "aws_iam_role_policy_attachment" "ecr" {
   count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.eks_nodes_role.name
+  role       = aws_iam_role.eks_nodes_role[0].name
 }
 
 resource "aws_iam_role_policy_attachment" "ssm" {
   count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  role       = aws_iam_role.eks_nodes_role.name
+  role       = aws_iam_role.eks_nodes_role[0].name
 }
 
 resource "aws_iam_role_policy_attachment" "cloudwatch" {
   count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-  role       = aws_iam_role.eks_nodes_role.name
+  role       = aws_iam_role.eks_nodes_role[0].name
 }
 
 resource "aws_iam_instance_profile" "eks_nodes_profile" {
   count = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   name  = format("%s-eks-nodes-profile", var.project_name)
-  role  = aws_iam_role.eks_nodes_role.name
+  role  = aws_iam_role.eks_nodes_role[0].name
 }
