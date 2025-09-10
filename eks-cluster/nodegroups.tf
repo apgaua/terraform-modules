@@ -2,7 +2,7 @@ resource "aws_eks_node_group" "main" {
   count           = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? length(var.nodegroup) : 0
   cluster_name    = aws_eks_cluster.main.id
   node_group_name = format("%s-%s", aws_eks_cluster.main.id, var.nodegroup[count.index].name_suffix)
-  node_role_arn   = aws_iam_role.eks_nodes_role.arn
+  node_role_arn   = aws_iam_role.eks_nodes_role[0].arn
   ami_type        = var.nodegroup[count.index].ami_type
   instance_types  = var.nodegroup[count.index].instance_types
   subnet_ids      = data.aws_ssm_parameter.pod_subnets[*].value

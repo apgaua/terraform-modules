@@ -31,3 +31,8 @@ resource "aws_nat_gateway" "main" {
   tags       = merge({ Name = format("%s-nat-gateway-%s", var.project_name, count.index) }, var.default_tags)
   depends_on = [aws_internet_gateway.gw, aws_eip.eip, aws_subnet.publicsubnets]
 }
+
+##################################################
+################# NAT INSTANCE ###################
+##################################################
+

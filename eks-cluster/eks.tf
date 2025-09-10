@@ -58,12 +58,12 @@ resource "aws_eks_fargate_profile" "main" {
   pod_execution_role_arn = aws_iam_role.fargate_cluster_role[0].arn
   subnet_ids = data.aws_ssm_parameter.pod_subnets[*].value
 
-  dynamic "selector" {
-    for_each = var.cluster[0].fargate_namespace
-    content {
-      namespace = selector.value
-    }
+dynamic "selector" {
+  for_each = var.cluster[0].eks_mode == "FULLFARGATE" ? ["*"] : var.cluster[0].fargate_namespace
+  content {
+    namespace = selector.value
   }
+}
 
   tags = merge(
     {

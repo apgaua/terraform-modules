@@ -1,7 +1,7 @@
 resource "aws_eks_access_entry" "nodes" {
   count         = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   cluster_name  = aws_eks_cluster.main.id
-  principal_arn = aws_iam_role.eks_nodes_role.arn
+  principal_arn = aws_iam_role.eks_nodes_role[0].arn
   type          = "EC2_LINUX"
 }
 
