@@ -64,7 +64,7 @@ variable "helm_charts" {
     version          = optional(string, null)
     set = optional(list(object({
       name  = string
-      value = string
+      value = any
     })), [])
   }))
   default = []
