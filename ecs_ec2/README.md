@@ -1,17 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
+# Custom terraform modules
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-
-## Modules
-
-No modules.
 
 ## Resources
 
@@ -71,4 +65,23 @@ No modules.
 | <a name="output_lb_ssm_arn"></a> [lb\_ssm\_arn](#output\_lb\_ssm\_arn) | n/a |
 | <a name="output_lb_ssm_listener"></a> [lb\_ssm\_listener](#output\_lb\_ssm\_listener) | n/a |
 | <a name="output_load_balancer_dns"></a> [load\_balancer\_dns](#output\_load\_balancer\_dns) | n/a |
+
+## Author
+
+👤 **Apgaua S**
+
+* LinkedIn: [@apgauasousa](https://linkedin.com/in/apgauasousa)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2025 [Apgaua S](https://github.com/apgaua).<br />
+This project is [MIT](LICENSE) licensed.
 <!-- END_TF_DOCS -->

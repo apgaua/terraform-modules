@@ -1,17 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
+# Custom terraform modules
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-
-## Modules
-
-No modules.
 
 ## Resources
 
@@ -33,7 +27,22 @@ No modules.
 | <a name="input_service_port"></a> [service\_port](#input\_service\_port) | n/a | `string` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `string` | n/a | yes |
 
-## Outputs
+## Author
 
-No outputs.
+👤 **Apgaua S**
+
+* LinkedIn: [@apgauasousa](https://linkedin.com/in/apgauasousa)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2025 [Apgaua S](https://github.com/apgaua).<br />
+This project is [MIT](LICENSE) licensed.
 <!-- END_TF_DOCS -->
