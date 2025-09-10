@@ -37,8 +37,8 @@ resource "aws_iam_role_policy_attachment" "eks_service_policy" {
 ############################### EKS FARGATE PROFILE ############################
 ################################################################################
 
-data "aws_iam_policy_document" "fargate"{
-  count = length(var.cluster) > 0 && var.cluster[0].enable_fargate ? 1 : 0
+data "aws_iam_policy_document" "fargate" {
+  count = length(var.cluster) > 0 && var.cluster[0].eks_mode != "NODEGROUPS" ? 1 : 0
   statement {
     actions = ["sts:AssumeRole"]
     principals {
@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "fargate"{
 }
 
 resource "aws_iam_role" "fargate_cluster_role" {
-  count = length(var.cluster) > 0 && var.cluster[0].enable_fargate ? 1 : 0
+  count              = length(var.cluster) > 0 && var.cluster[0].eks_mode != "NODEGROUPS" ? 1 : 0
   name               = format("%s-fargate-role", var.project_name)
   assume_role_policy = data.aws_iam_policy_document.fargate[count.index].json
   tags = {
@@ -58,7 +58,7 @@ resource "aws_iam_role" "fargate_cluster_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "fargate" {
-  count = length(var.cluster) > 0 && var.cluster[0].enable_fargate ? 1 : 0
+  count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "NODEGROUPS" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
   role       = aws_iam_role.fargate_cluster_role[count.index].name
 }
@@ -69,30 +69,30 @@ resource "aws_iam_role_policy_attachment" "fargate" {
 ################################################################################
 
 data "aws_iam_policy_document" "autoscaler" {
-count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
+  count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
     effect  = "Allow"
     principals {
-      type = "Federated"
-      identifiers = [ aws_iam_openid_connect_provider.eks.arn ]
+      type        = "Federated"
+      identifiers = [aws_iam_openid_connect_provider.eks.arn]
     }
   }
 }
 
 resource "aws_iam_role" "autoscaler" {
-count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
+  count              = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   name               = format("%s-autoscaler-role", var.project_name)
   assume_role_policy = data.aws_iam_policy_document.autoscaler[0].json
   tags = merge(
     {
-    Name = "${var.project_name}-eks-autoscaler"
-  },
+      Name = "${var.project_name}-eks-autoscaler"
+    },
   var.default_tags)
 }
 
 data "aws_iam_policy_document" "autoscaler_policy" {
-count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
+  count   = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   version = "2012-10-17"
 
   statement {
@@ -134,22 +134,22 @@ count = length(var.cluster) > 0 && var.cluster[0].enable_cluster_autoscaler ? 1 
 }
 
 resource "aws_iam_policy" "autoscaler" {
-  count      = var.cluster[0].enable_cluster_autoscaler ? 1 : 0
+  count       = var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   name        = format("%s-autoscaler-policy", var.project_name)
   description = "IAM policy for EKS Cluster Autoscaler"
   policy      = data.aws_iam_policy_document.autoscaler_policy[0].json
   tags = merge(
     {
-    Name = "${var.project_name}-eks-autoscaler"
-  },
+      Name = "${var.project_name}-eks-autoscaler"
+    },
   var.default_tags)
 }
 
 resource "aws_iam_role_policy_attachment" "autoscaler" {
-  count     = var.cluster[0].enable_cluster_autoscaler ? 1 : 0
+  count      = var.cluster[0].enable_cluster_autoscaler ? 1 : 0
   role       = aws_iam_role.autoscaler[0].name
   policy_arn = aws_iam_policy.autoscaler[0].arn
-} 
+}
 
 ################################################################################
 ######################### NODE TERMINATION HANDLER #############################
@@ -225,6 +225,7 @@ resource "aws_iam_policy_attachment" "aws_node_termination_handler_policy" {
 ################################################################################
 
 data "aws_iam_policy_document" "nodes" {
+  count   = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   version = "2012-10-17"
   statement {
     actions = ["sts:AssumeRole"]
@@ -237,6 +238,8 @@ data "aws_iam_policy_document" "nodes" {
 }
 
 resource "aws_iam_role" "eks_nodes_role" {
+  count = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
+
   name               = format("%s-nodes-role", var.project_name)
   assume_role_policy = data.aws_iam_policy_document.nodes.json
   tags = {
@@ -245,31 +248,37 @@ resource "aws_iam_role" "eks_nodes_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "cni" {
+  count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role       = aws_iam_role.eks_nodes_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "nodes" {
+  count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.eks_nodes_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "ecr" {
+  count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks_nodes_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "ssm" {
+  count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.eks_nodes_role.name
 }
 
 resource "aws_iam_role_policy_attachment" "cloudwatch" {
+  count      = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
   role       = aws_iam_role.eks_nodes_role.name
 }
 
 resource "aws_iam_instance_profile" "eks_nodes_profile" {
-  name = format("%s-eks-nodes-profile", var.project_name)
-  role = aws_iam_role.eks_nodes_role.name
+  count = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
+  name  = format("%s-eks-nodes-profile", var.project_name)
+  role  = aws_iam_role.eks_nodes_role.name
 }
