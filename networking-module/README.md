@@ -1,19 +1,13 @@
 # VPC and subnets configuration module
 
 <!-- BEGIN_TF_DOCS -->
-## Requirements
-
-No requirements.
+# Custom terraform modules
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-
-## Modules
-
-No modules.
 
 ## Resources
 
@@ -72,4 +66,23 @@ No modules.
 | <a name="output_ssm_private_subnets"></a> [ssm\_private\_subnets](#output\_ssm\_private\_subnets) | SSM Parameters about private subnets id |
 | <a name="output_ssm_public_subnets"></a> [ssm\_public\_subnets](#output\_ssm\_public\_subnets) | SSM Parameters about public subnets id |
 | <a name="output_ssm_vpc_id"></a> [ssm\_vpc\_id](#output\_ssm\_vpc\_id) | n/a |
+
+## Author
+
+👤 **Apgaua S**
+
+* LinkedIn: [@apgauasousa](https://linkedin.com/in/apgauasousa)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2025 [Apgaua S](https://github.com/apgaua).<br />
+This project is [MIT](LICENSE) licensed.
 <!-- END_TF_DOCS -->
