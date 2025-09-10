@@ -52,7 +52,7 @@ resource "aws_eks_cluster" "main" {
 ################################################################################
 
 resource "aws_eks_fargate_profile" "main" {
-  count = length(var.cluster) > 0 && var.cluster[0].enable_fargate ? 1 : 0
+  count = length(var.cluster) > 0 && var.cluster[0].eks_mode != "NODEGROUPS" ? 1 : 0
   cluster_name = aws_eks_cluster.main.id
   fargate_profile_name = format("%s-fargate-profile", var.project_name)
   pod_execution_role_arn = aws_iam_role.fargate_cluster_role[0].arn

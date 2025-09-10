@@ -44,7 +44,7 @@ resource "aws_cloudwatch_event_rule" "node_termination_handler_instance_terminat
 }
 
 resource "aws_cloudwatch_event_target" "node_termination_handler_instance_terminate" {
-  
+
   rule      = aws_cloudwatch_event_rule.node_termination_handler_instance_terminate.name
   target_id = "SendToSQS"
   arn       = aws_sqs_queue.node_termination.arn
@@ -73,7 +73,7 @@ resource "aws_cloudwatch_event_rule" "node_termination_handler_scheduled_change"
 }
 
 resource "aws_cloudwatch_event_target" "node_termination_handler_scheduled_change" {
-  
+
   rule      = aws_cloudwatch_event_rule.node_termination_handler_scheduled_change.name
   target_id = "SendToSQS"
   arn       = aws_sqs_queue.node_termination.arn
@@ -93,7 +93,7 @@ resource "aws_cloudwatch_event_rule" "node_termination_handler_spot_termination"
 }
 
 resource "aws_cloudwatch_event_target" "node_termination_handler_spot_termination" {
-  
+
   rule      = aws_cloudwatch_event_rule.node_termination_handler_spot_termination.name
   target_id = "SendToSQS"
   arn       = aws_sqs_queue.node_termination.arn
@@ -114,7 +114,7 @@ resource "aws_cloudwatch_event_rule" "node_termination_handler_rebalance" {
 }
 
 resource "aws_cloudwatch_event_target" "node_termination_handler_rebalance" {
-  
+
   rule      = aws_cloudwatch_event_rule.node_termination_handler_rebalance.name
   target_id = "SendToSQS"
   arn       = aws_sqs_queue.node_termination.arn
@@ -135,7 +135,7 @@ resource "aws_cloudwatch_event_rule" "node_termination_handler_state_change" {
 }
 
 resource "aws_cloudwatch_event_target" "node_termination_handler_state_change" {
-  
+
   rule      = aws_cloudwatch_event_rule.node_termination_handler_state_change.name
   target_id = "SendToSQS"
   arn       = aws_sqs_queue.node_termination.arn

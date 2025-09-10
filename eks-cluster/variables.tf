@@ -18,9 +18,9 @@ variable "cluster" {
       authentication_mode                         = string
       bootstrap_cluster_creator_admin_permissions = bool
     }))
-    eks_mode = optional(string, "NODEGROUPS") # FARGATE | NODEGROUPS | FULLFARGATE
-    enable_cluster_autoscaler = optional(bool, false)
-    fargate_namespace = optional(list(string), [])
+    eks_mode                    = optional(string, "NODEGROUPS") # FARGATE | NODEGROUPS | FULLFARGATE
+    enable_cluster_autoscaler   = optional(bool, false)
+    fargate_namespace           = optional(list(string), [])
     upgrade_policy_support_type = string
     enabled_cluster_log_types   = list(string)
     addons = optional(list(object({
@@ -34,11 +34,11 @@ variable "cluster" {
 ############################## NODES VARIABLES #################################
 ################################################################################
 
-variable "nodegroup" {  
+variable "nodegroup" {
   type = list(object({
-    name_suffix      = string
-    instance_types  = list(string)
-    capacity_type   = optional(string, "SPOT") # or ON_DEMAND
+    name_suffix    = string
+    instance_types = list(string)
+    capacity_type  = optional(string, "SPOT") # or ON_DEMAND
     ami_type       = optional(string)
     auto_scale_options = list(object({
       min     = number
