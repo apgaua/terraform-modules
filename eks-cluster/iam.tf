@@ -238,7 +238,7 @@ data "aws_iam_policy_document" "nodes" {
 }
 
 resource "aws_iam_role" "eks_nodes_role" {
-  count = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
+  count              = length(var.cluster) > 0 && var.cluster[0].eks_mode != "FULLFARGATE" ? 1 : 0
   name               = format("%s-nodes-role", var.project_name)
   assume_role_policy = data.aws_iam_policy_document.nodes[0].json
   tags = {
