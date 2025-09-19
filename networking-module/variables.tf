@@ -60,7 +60,7 @@ variable "database_nacl_rules" {
 variable "singlenat" {
   type        = bool
   default     = true
-  description = "If true, create a single NAT Gateway in the first AZ. If false, create a NAT Gateway in each public subnet."
+  description = "If true, create a single NAT Gateway/Instance in the first AZ. If false, create a NAT Gateway/Instance in each public subnet."
 }
 
 variable "nat_gateway_type" {
