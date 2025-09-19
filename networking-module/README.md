@@ -15,7 +15,7 @@
 | <a name="input_project_name"></a> [project\_name](#input\_project\_name) | VPC Variables | `string` | `"Name of the project, it will be used in the tags and naming of resources"` | no |
 | <a name="input_publicsubnets"></a> [publicsubnets](#input\_publicsubnets) | Public subnet values | `list(string)` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The AWS region that the structure will be deployed | `string` | n/a | yes |
-| <a name="input_singlenat"></a> [singlenat](#input\_singlenat) | If true, create a single NAT Gateway in the first AZ. If false, create a NAT Gateway in each public subnet. | `bool` | `true` | no |
+| <a name="input_singlenat"></a> [singlenat](#input\_singlenat) | If true, create a single NAT Gateway/Instance in the first AZ. If false, create a NAT Gateway/Instance in each public subnet. | `bool` | `true` | no |
 | <a name="input_vpc_additional_cidrs"></a> [vpc\_additional\_cidrs](#input\_vpc\_additional\_cidrs) | Additional VPC CIDRs | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | Main VPC CIDR | `string` | n/a | yes |
 ## Outputs
