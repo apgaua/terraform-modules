@@ -64,3 +64,9 @@ variable "singlenat" {
   default     = true
   description = "Should it be deploy with a single NAT Gateway? If set to false, it will be deployed one each AZ"
 }
+
+variable "nat_gateway_type" {
+  type        = string
+  default     = "INSTANCE"
+  description = "Type of NAT Gateway to create: GATEWAY or INSTANCE"
+}

@@ -44,8 +44,9 @@ resource "aws_route_table" "pod_internet_access" {
 ###################### ROUTE #####################
 ##################################################
 
+########### ROUTE via NAT GATEWAY ###############
 resource "aws_route" "private_access" {
-  count                  = length(var.privatesubnets)
+  count                  = var.nat_gateway_type == "GATEWAY" ? length(var.privatesubnets) : 0
   route_table_id         = aws_route_table.private_internet_access[count.index].id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = var.singlenat == true ? aws_nat_gateway.main[0].id : aws_nat_gateway.main[
@@ -57,7 +58,7 @@ resource "aws_route" "private_access" {
 }
 
 resource "aws_route" "pod_access" {
-  count                  = length(var.podsubnets)
+  count                  = var.nat_gateway_type == "GATEWAY" ? length(var.podsubnets) : 0
   route_table_id         = aws_route_table.pod_internet_access[count.index].id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = var.singlenat == true ? aws_nat_gateway.main[0].id : aws_nat_gateway.main[
@@ -67,6 +68,24 @@ resource "aws_route" "pod_access" {
     )
   ].id
 }
+
+########### ROUTE via NAT INSTANCE ###############
+resource "aws_route" "private_access_via_instance" {
+  count                  = var.nat_gateway_type == "INSTANCE" ? length(var.privatesubnets) : 0
+  route_table_id         = aws_route_table.private_internet_access[count.index].id
+  destination_cidr_block = "0.0.0.0/0"
+  network_interface_id   = var.singlenat ? aws_instance.nat_instance[0].primary_network_interface_id : aws_instance.nat_instance[count.index].primary_network_interface_id
+  depends_on             = [aws_instance.nat_instance]
+}
+
+resource "aws_route" "pod_access_via_instance" {
+  count                  = var.nat_gateway_type == "INSTANCE" ? length(var.podsubnets) : 0
+  route_table_id         = aws_route_table.pod_internet_access[count.index].id
+  destination_cidr_block = "0.0.0.0/0"
+  network_interface_id   = var.singlenat ? aws_instance.nat_instance[0].primary_network_interface_id : aws_instance.nat_instance[count.index].primary_network_interface_id
+  depends_on             = [aws_instance.nat_instance]
+}
+
 
 ##################################################
 ########### ROUTE TABLE ASSOCIATION ##############
