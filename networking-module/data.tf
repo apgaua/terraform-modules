@@ -8,3 +8,13 @@ data "aws_availability_zones" "azones" {
     values = ["opt-in-not-required"]
   }
 }
+
+data "aws_ami" "amazon_linux_2" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-arm64-gp2"]
+  }
+}
