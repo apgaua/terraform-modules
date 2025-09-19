@@ -10,3 +10,13 @@ footer-from: ../docs/footer.md
 settings:
   hide-empty: true
   indent: 2
+
+content: |-
+  {{ .Header }}
+  {{ .Inputs }}
+  {{ .Outputs }}
+  {{ .Providers }}
+  {{ .Modules }}
+  {{ .Requirements }}
+  {{ .Resources }}
+  {{ .Footer }}
