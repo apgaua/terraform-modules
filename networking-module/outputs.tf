@@ -1,5 +1,5 @@
 output "ssm_vpc_id" {
-  value = aws_ssm_parameter.vpc.id
+  value       = aws_ssm_parameter.vpc.id
   description = "VPC ID of deployed resources"
 }
 

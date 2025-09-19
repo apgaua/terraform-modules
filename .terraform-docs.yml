@@ -11,6 +11,10 @@ settings:
   hide-empty: true
   indent: 2
 
+sort:
+  enabled: true
+  by: source
+
 content: |-
   {{ .Header }}
   {{ .Inputs }}
