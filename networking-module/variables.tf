@@ -1,17 +1,17 @@
 #VPC Variables
 variable "project_name" {
   type    = string
-  default = "Name of the project"
+  default = "Name of the project, it will be used in the tags and naming of resources"
 }
 
 variable "vpc_cidr" {
   type        = string
-  description = "Main CIDR"
+  description = "Main VPC CIDR"
 }
 
 variable "vpc_additional_cidrs" {
   type        = list(string)
-  description = "VPC additional CIDRs"
+  description = "Additional VPC CIDRs"
   default     = [""]
 }
 
@@ -19,8 +19,6 @@ variable "default_tags" {
   type = map(string)
   default = {
     Contato = ""
-    Curso   = ""
-    Dia     = ""
     Repo    = ""
   }
   description = "Default tags to be set in resources"
@@ -33,36 +31,36 @@ variable "region" {
 
 variable "publicsubnets" {
   type        = list(string)
-  description = "Public subnet CIDR"
+  description = "Public subnet values"
 }
 
 variable "privatesubnets" {
   type        = list(string)
-  description = "Private subnet CIDR"
+  description = "Private subnet values"
 }
 
 variable "podsubnets" {
   type        = list(string)
-  description = "POD subnet CIDR"
+  description = "POD subnet values"
   default     = []
 }
 
 variable "databasesubnets" {
   type        = list(string)
-  description = "Database subnet CIDR"
+  description = "Database subnet values"
   default     = []
 }
 
 variable "database_nacl_rules" {
   type        = list(map(string))
-  description = "NACL rules that will be created in database subnet"
+  description = "ACL rule to database subnet"
   default     = []
 }
 
 variable "singlenat" {
   type        = bool
   default     = true
-  description = "Should it be deploy with a single NAT Gateway? If set to false, it will be deployed one each AZ"
+  description = "If true, create a single NAT Gateway in the first AZ. If false, create a NAT Gateway in each public subnet."
 }
 
 variable "nat_gateway_type" {
