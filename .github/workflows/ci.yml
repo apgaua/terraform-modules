@@ -47,9 +47,10 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: 'Generate Docs'
-        uses: terraform-docs/gh-actions@v1.2.0
+      - name: Render terraform docs inside the README.md and push changes back to PR branch
+        uses: terraform-docs/gh-actions@v1.4.1
         with:
+          working-dir: .
           output-file: README.md
           output-method: inject
           git-push: "true"
