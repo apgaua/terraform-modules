@@ -12,6 +12,7 @@ resource "aws_security_group" "lb" {
       "0.0.0.0/0"
     ]
   }
+  
   dynamic "ingress" {
     for_each = local.lb_ports
     content {
