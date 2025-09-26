@@ -37,7 +37,6 @@ resource "aws_instance" "nat_instance" {
 ################### SECURITY GROUP #################
 ####################################################
 
-
 resource "aws_security_group" "nat" {
   name        = "nat-instance-sg"
   description = "Allow traffic for NAT instance"
