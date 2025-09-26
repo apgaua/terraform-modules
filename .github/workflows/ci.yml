@@ -1,0 +1,60 @@
+name: 'Terraform Module CI'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  # This job runs on pull requests to check code quality and security.
+  pr-checks:
+    name: 'PR Checks'
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Terraform'
+        uses: hashicorp/setup-terraform@v3
+
+      - name: 'Terraform Format Check'
+        run: terraform fmt -check -recursive
+
+      - name: 'Terraform Init'
+        # Use -backend=false for modules since they don't have a backend.
+        run: terraform init -backend=false
+
+      - name: 'Terraform Validate'
+        run: terraform validate
+
+      - name: 'Run TFLint'
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: latest
+
+      - name: 'Run tfsec'
+        uses: aquasecurity/tfsec-action@v1.2.0
+
+      # Note: Terraform test would be another step here and requires cloud credentials.
+      # - name: 'Terraform Test'
+      #   run: terraform test
+
+  # This job runs only on a merge to the main branch to create a release.
+  release:
+    name: 'Release'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Generate Docs'
+        uses: terraform-docs/gh-actions@v1.2.0
+        with:
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
+
+      - name: 'Release Please'
+        uses: google-github-actions/release-please-action@v4
+        with:
+          release-type: terraform-module
