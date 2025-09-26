@@ -1,13 +1,13 @@
 #LB Security group
 resource "aws_security_group" "lb" {
-  name   = format("%s-load-balancer", var.project_name)
-  vpc_id = data.aws_ssm_parameter.vpc.value
+  name        = format("%s-load-balancer", var.project_name)
+  vpc_id      = data.aws_ssm_parameter.vpc.value
   description = "Security group for load balancer"
   egress {
     description = "Allow all outbound traffic"
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = [
       "0.0.0.0/0"
     ]
@@ -27,8 +27,8 @@ resource "aws_security_group" "lb" {
 
 ## Main security group
 resource "aws_security_group" "main" {
-  name   = format("%s-load-balancer-sg", var.project_name)
-  vpc_id = data.aws_ssm_parameter.vpc.value
+  name        = format("%s-load-balancer-sg", var.project_name)
+  vpc_id      = data.aws_ssm_parameter.vpc.value
   description = "Security group for ECS instances"
   egress {
     description = "Allow all outbound traffic"
