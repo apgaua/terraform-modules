@@ -9,6 +9,10 @@ resource "aws_instance" "nat_instance" {
   subnet_id              = aws_subnet.publicsubnets[count.index].id
   source_dest_check      = false
   vpc_security_group_ids = [aws_security_group.nat.id]
+    metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
   root_block_device {
     encrypted = true
   }
