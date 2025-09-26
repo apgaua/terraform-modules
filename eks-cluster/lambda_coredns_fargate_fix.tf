@@ -1,25 +1,20 @@
 data "aws_iam_policy_document" "coredns_fix" {
-
   version = "2012-10-17"
-
   statement {
-
     actions = ["sts:AssumeRole"]
-
     principals {
       type = "Service"
       identifiers = [
         "lambda.amazonaws.com"
       ]
     }
-
   }
-
 }
 
 resource "aws_iam_role" "coredns_fix" {
   name_prefix        = format("%s-coredns-fix", var.project_name)
   assume_role_policy = data.aws_iam_policy_document.coredns_fix.json
+  description = "IAM role for CoreDNS fix Lambda function"
 }
 
 resource "aws_iam_role_policy_attachment" "coredns_fix" {
@@ -30,8 +25,10 @@ resource "aws_iam_role_policy_attachment" "coredns_fix" {
 resource "aws_security_group" "coredns_fix" {
   name   = format("%s-coredns-fix", var.project_name)
   vpc_id = data.aws_ssm_parameter.vpc.value
+  description = "Security group for CoreDNS fix Lambda function"
 
   egress {
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
