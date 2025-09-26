@@ -9,7 +9,9 @@ resource "aws_instance" "nat_instance" {
   subnet_id              = aws_subnet.publicsubnets[count.index].id
   source_dest_check      = false
   vpc_security_group_ids = [aws_security_group.nat.id]
-
+  root_block_device {
+    encrypted = true
+  }
   tags = merge({ Name = format("%s-nat-instance-%s", var.project_name, count.index) }, var.default_tags)
 
   depends_on = [aws_internet_gateway.gw, aws_subnet.publicsubnets]
