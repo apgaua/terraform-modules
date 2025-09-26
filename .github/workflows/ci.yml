@@ -34,10 +34,10 @@ jobs:
         with:
           tflint_version: latest
 
-      - name: 'Run tfsec'
-        uses: aquasecurity/tfsec-action@v1.2.0
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
 
-      # Note: Terraform test would be another step here and requires cloud credentials.
+          # Note: Terraform test would be another step here and requires cloud credentials.
       # - name: 'Terraform Test'
       #   run: terraform test
 
