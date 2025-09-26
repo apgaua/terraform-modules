@@ -1,25 +1,25 @@
-name: Generate terraform docs
+# name: Generate terraform docs
 
-on:
-  # Trigger only for pull requests that target the 'dev' branch
-  pull_request:
-    branches:
-      - dev
-      - main
+# on:
+#   # Trigger only for pull requests that target the 'dev' branch
+#   pull_request:
+#     branches:
+#       - dev
+#       - main
 
-jobs:
-  docs:
-    runs-on: ubuntu-latest
-    steps:
-      # Use the latest version of the checkout action
-    - uses: actions/checkout@v4
-      with:
-        ref: ${{ github.event.pull_request.head.ref }}
+# jobs:
+#   docs:
+#     runs-on: ubuntu-latest
+#     steps:
+#       # Use the latest version of the checkout action
+#     - uses: actions/checkout@v4
+#       with:
+#         ref: ${{ github.event.pull_request.head.ref }}
 
-    - name: Render terraform docs and push changes back to PR
-      uses: terraform-docs/gh-actions@v1.0.0
-      with:
-        find-dir: .
-        output-file: README.md
-        output-method: inject
-        git-push: "true"
+#     - name: Render terraform docs and push changes back to PR
+#       uses: terraform-docs/gh-actions@v1.0.0
+#       with:
+#         find-dir: .
+#         output-file: README.md
+#         output-method: inject
+#         git-push: "true"

@@ -13,7 +13,7 @@ settings:
 
 sort:
   enabled: true
-  by: source
+  by: required
 
 content: |-
   {{ .Header }}
