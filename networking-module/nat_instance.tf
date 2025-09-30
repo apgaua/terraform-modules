@@ -61,19 +61,12 @@ resource "aws_security_group" "nat" {
   }
 
   # Allow all outbound traffic
+  #tfsec:ignore:aws-ec2-no-public-egress-sgr:2025-10-30 Justified: Need this to allow outbound traffic from NAT instance
   egress {
     description = "Allow http outbound traffic"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-    egress {
-    description = "Allow https outbound traffic"
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
