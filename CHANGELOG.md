@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/apgaua/terraform-modules/compare/v1.0.1...v1.0.2) (2026-01-05)
+
+
+### Bug Fixes
+
+* standardize comment spacing for EKS public access endpoint confi… ([e651c9d](https://github.com/apgaua/terraform-modules/commit/e651c9d34bd133561ed0f4b52cd0fad585da780c))
+* standardize comment spacing for EKS public access endpoint configuration. ([bf9a469](https://github.com/apgaua/terraform-modules/commit/bf9a469101fea5cf465a137c7c791e4050d6e39f))
+
 ## [1.0.1](https://github.com/apgaua/terraform-modules/compare/v1.0.0...v1.0.1) (2025-09-30)
 
 
