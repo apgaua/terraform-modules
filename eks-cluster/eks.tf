@@ -11,7 +11,7 @@ resource "aws_eks_cluster" "main" {
   vpc_config {
     subnet_ids              = data.aws_ssm_parameter.private_subnets[*].value
     endpoint_private_access = true
-    endpoint_public_access  = false #Disabled for now, enable if you need to access the cluster API from outside the VPC
+    endpoint_public_access  = false # Disabled for now, enable if you need to access the cluster API from outside the VPC
     # If you need to access the cluster API from specific IPs, uncomment the line below
     #public_access_cidrs = [""]
   }
