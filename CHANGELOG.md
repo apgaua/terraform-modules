@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.3](https://github.com/apgaua/terraform-modules/compare/v1.0.2...v1.0.3) (2026-01-11)
+
+
+### Bug Fixes
+
+* Enable s3 bucket force_destroy ([9cef011](https://github.com/apgaua/terraform-modules/commit/9cef01102c4a10f0df63e4282634d71f8a219fa5))
+* Enable s3 bucket force_destroy ([67d62f3](https://github.com/apgaua/terraform-modules/commit/67d62f353d251c7bc787f31fd9df0e23aefca2e4))
+
 ## [1.0.2](https://github.com/apgaua/terraform-modules/compare/v1.0.1...v1.0.2) (2026-01-05)
 
 
