@@ -65,7 +65,7 @@ resource "aws_kms_alias" "flow_logs_key_alias" {
 resource "aws_s3_bucket" "buckets" {
   for_each      = local.s3_buckets
   bucket        = lower("${var.project_name}${each.value.suffix}-${data.aws_caller_identity.current.account_id}")
-  force_destroy = true  # Enabled to avoid errors on destroy
+  force_destroy = true # Enabled to avoid errors on destroy
   tags          = merge({ Name = "${var.project_name}${each.value.suffix}" }, var.default_tags)
 }
 
