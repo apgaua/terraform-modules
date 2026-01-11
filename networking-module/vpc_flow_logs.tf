@@ -63,10 +63,10 @@ resource "aws_kms_alias" "flow_logs_key_alias" {
 
 #tfsec:ignore:aws-s3-enable-bucket-logging:2025-10-30 Justified: Buckets are configured with logging and versioning in the resources below.
 resource "aws_s3_bucket" "buckets" {
-  for_each = local.s3_buckets
-  bucket   = lower("${var.project_name}${each.value.suffix}-${data.aws_caller_identity.current.account_id}")
+  for_each      = local.s3_buckets
+  bucket        = lower("${var.project_name}${each.value.suffix}-${data.aws_caller_identity.current.account_id}")
   force_destroy = true #Enabled to avoid errors on destroy
-  tags     = merge({ Name = "${var.project_name}${each.value.suffix}" }, var.default_tags)
+  tags          = merge({ Name = "${var.project_name}${each.value.suffix}" }, var.default_tags)
 }
 
 ################################################################################
