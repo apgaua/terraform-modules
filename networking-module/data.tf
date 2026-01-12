@@ -18,3 +18,5 @@ data "aws_ami" "amazon_linux_2" {
     values = ["amzn2-ami-hvm-*-arm64-gp2"]
   }
 }
+
+data "aws_caller_identity" "current" {}
