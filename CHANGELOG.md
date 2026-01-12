@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.5](https://github.com/apgaua/terraform-modules/compare/v1.0.4...v1.0.5) (2026-01-12)
+
+
+### Bug Fixes
+
+* bucket name ([e6b0270](https://github.com/apgaua/terraform-modules/commit/e6b0270c4dec1bba58d08d5bd7153afb85989be1))
+* bucket name ([6586959](https://github.com/apgaua/terraform-modules/commit/6586959cfa239e885fc50af124a1807047f14cbb))
+
 ## [1.0.4](https://github.com/apgaua/terraform-modules/compare/v1.0.3...v1.0.4) (2026-01-12)
 
 
