@@ -59,7 +59,6 @@ resource "aws_kms_alias" "flow_logs_key_alias" {
 ############################### S3 Buckets #####################################
 ################################################################################
 
-#tfsec:ignore:aws-s3-enable-bucket-logging:2025-10-30 Justified: Buckets are configured with logging and versioning in the resources below.
 resource "aws_s3_bucket" "buckets" {
   for_each      = local.s3_buckets
   bucket        = lower("${var.project_name}${each.value.suffix}-${data.aws_caller_identity.current.account_id}")
