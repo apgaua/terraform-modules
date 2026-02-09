@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.6](https://github.com/apgaua/terraform-modules/compare/v1.0.5...v1.0.6) (2026-02-09)
+
+
+### Bug Fixes
+
+* Lowercase S3 bucket names for VPC flow logs, update gitignore, and add a comment to an IAM policy attachment. ([f1a6ba0](https://github.com/apgaua/terraform-modules/commit/f1a6ba053350c61655cb80512d5e7ac301b2119e))
+* remove tfsec ignore comments for NAT instance and S3 bucket ([2d01539](https://github.com/apgaua/terraform-modules/commit/2d01539d28f2e77b9e3a65c6a0808f3981d1bc0e))
+
 ## [1.0.5](https://github.com/apgaua/terraform-modules/compare/v1.0.4...v1.0.5) (2026-01-12)
 
 
