@@ -61,7 +61,6 @@ resource "aws_security_group" "nat" {
   }
 
   # Allow all outbound traffic
-  #tfsec:ignore:aws-ec2-no-public-egress-sgr:2025-10-30 Justified: Need this to allow outbound traffic from NAT instance
   egress {
     description = "Allow http outbound traffic"
     from_port   = 0
