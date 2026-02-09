@@ -72,7 +72,7 @@ resource "aws_s3_bucket" "buckets" {
 
 resource "aws_s3_bucket_versioning" "s3_bucket_logs_versioning" {
   for_each = local.s3_buckets
-  bucket   = "${var.project_name}${each.value.suffix}-${data.aws_caller_identity.current.account_id}"
+  bucket   = lower("${var.project_name}${each.value.suffix}-${data.aws_caller_identity.current.account_id}")
   versioning_configuration {
     status = "Enabled"
   }

@@ -101,4 +101,6 @@ terragrunt-debug.tfvars.json
 .ionide
 
 .agent/
+.vscode/
 # End of https://www.toptal.com/developers/gitignore/api/macos,terraform,terragrunt,visualstudiocode
+
