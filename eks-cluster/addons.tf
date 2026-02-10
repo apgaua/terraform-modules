@@ -6,5 +6,5 @@ resource "aws_eks_addon" "main" {
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
   tags                        = merge({ "kubernetes.io/cluster/${var.project_name}" = "shared" }, var.default_tags)
-  depends_on                  = [aws_eks_access_entry.nodes]
+  depends_on                  = [aws_eks_access_entry.nodes, aws_eks_node_group.main]
 }
