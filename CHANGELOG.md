@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/apgaua/terraform-modules/compare/v1.1.0...v1.2.0) (2026-02-10)
+
+
+### Features
+
+* Enable EKS endpoint public access to support local Helm charts. ([57a7927](https://github.com/apgaua/terraform-modules/commit/57a79275307e0bdf33a8b5bf83522da890c544fc))
+* Enable EKS endpoint public access to support local Helm charts. ([601a943](https://github.com/apgaua/terraform-modules/commit/601a943a4cb861675cafcb474b16382a8db0370e))
+
 ## [1.1.0](https://github.com/apgaua/terraform-modules/compare/v1.0.6...v1.1.0) (2026-02-10)
 
 
