@@ -25,7 +25,7 @@ resource "aws_instance" "nat_instance" {
   instance_market_options {
     market_type = "spot"
     spot_options {
-      max_price          = "0.005" # Optional: Set your max hourly price
+      max_price          = var.nat_instance_max_price
       spot_instance_type = "one-time"
     }
   }

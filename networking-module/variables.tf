@@ -15,6 +15,12 @@ variable "vpc_additional_cidrs" {
   default     = [""]
 }
 
+variable "nat_instance_max_price" {
+  type        = string
+  default     = "0.005"
+  description = "Max price for spot NAT instance"
+}
+
 variable "default_tags" {
   type = map(string)
   default = {
