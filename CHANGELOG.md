@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/apgaua/terraform-modules/compare/v1.0.6...v1.1.0) (2026-02-10)
+
+
+### Features
+
+* Introduce launch templates for EKS nodegroups and add a depende… ([6dd9b0e](https://github.com/apgaua/terraform-modules/commit/6dd9b0ebaf68a26a757fadd5b139d1253edbd870))
+* Introduce launch templates for EKS nodegroups and add a dependency on the node group for the VPC CNI addon. ([100142d](https://github.com/apgaua/terraform-modules/commit/100142db354a051a0da30717bad773efc43bc507))
+
 ## [1.0.6](https://github.com/apgaua/terraform-modules/compare/v1.0.5...v1.0.6) (2026-02-09)
 
 
