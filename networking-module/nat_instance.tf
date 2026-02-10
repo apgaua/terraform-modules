@@ -6,7 +6,7 @@ resource "aws_instance" "nat_instance" {
   count                  = var.nat_gateway_type == "INSTANCE" ? (var.singlenat == true ? 1 : length(var.publicsubnets)) : 0
   ami                    = data.aws_ami.amazon_linux_2.id
   instance_type          = "t4g.nano"
-  key_name      = aws_key_pair.generated_key.key_name
+  key_name               = aws_key_pair.generated_key.key_name
   subnet_id              = aws_subnet.publicsubnets[count.index].id
   source_dest_check      = false
   vpc_security_group_ids = [aws_security_group.nat.id]
@@ -21,6 +21,14 @@ resource "aws_instance" "nat_instance" {
   tags = merge({ Name = format("%s-nat-instance-%s", var.project_name, count.index) }, var.default_tags)
 
   depends_on = [aws_internet_gateway.gw, aws_subnet.publicsubnets]
+
+  instance_market_options {
+    market_type = "spot"
+    spot_options {
+      max_price          = "0.005" # Optional: Set your max hourly price
+      spot_instance_type = "one-time"
+    }
+  }
 
   user_data = <<-EOF
               #!/bin/bash
