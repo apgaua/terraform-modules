@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0](https://github.com/apgaua/terraform-modules/compare/v1.2.0...v1.3.0) (2026-02-10)
+
+
+### Features
+
+* Configure NAT instance to use Spot Instances with a defined max price. ([d8b44e9](https://github.com/apgaua/terraform-modules/commit/d8b44e93c341ef945941531119cfa642ef0cbc08))
+* Generate and assign an SSH key pair to the NAT instance. ([25491ed](https://github.com/apgaua/terraform-modules/commit/25491edaa833702910af279ffa04ddd91eef3241))
+* Introduce a configurable max price for spot NAT instances. ([2a7843a](https://github.com/apgaua/terraform-modules/commit/2a7843a6c2509f257c8db3a73ed6b653d10be2a5))
+
 ## [1.2.0](https://github.com/apgaua/terraform-modules/compare/v1.1.0...v1.2.0) (2026-02-10)
 
 
